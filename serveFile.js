@@ -1,5 +1,15 @@
 const fs = require('fs');
-
+let docType={
+  'html': 'text/html',
+  'css' : 'text/css',
+  'jpg' : 'image/jpg',
+  'jpeg':'image/jpg',
+  'gif' : 'image/gif',
+  'pdf' : 'application/pdf',
+  'js' : 'text/javascript',
+  'json':'text/javascript',
+  'ico':'image/x-icon'
+};
 
 let serveFile=function(req,res){
   console.log('hello')
@@ -9,7 +19,13 @@ let serveFile=function(req,res){
   if(fs.existsSync(`./public${path}`)&&req.method!='POST'){
     let getDocType=path.split('.')[1];
     let getFilePath=`./public${path}`;
-    res.displayContents(fs,getDocType,getFilePath,path);
+    let type=docType[getDocType];
+    let content=fs.readFileSync(getFilePath);
+    res.setHeader("Content-Type",type);
+    res.statusCode = 200;
+    debugger;
+    res.write(content);
+    res.end();
   }
 }
 

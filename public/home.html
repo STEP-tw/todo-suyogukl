@@ -4,12 +4,29 @@
     <meta charset="utf-8">
     <title>Home page</title>
     <link rel="stylesheet" href="css/styleAllPage.css">
+    <script type="text/javascript">
+      function loadXMLDoc() {
+        var xmlhttp = new XMLHttpRequest();
+        // xmlhttp.onreadystatechange = function() {
+        //   if (this.readyState == 4 && this.status == 200) {
+        //     myFunction(this);
+        //   }
+        // };
+        xmlhttp.open("GET", "/home.html", true);
+        xmlhttp.send();
+      }
+    </script>
   </head>
   <body id='homePage'>
     <div class="">
       <h1 align='center'>TO-DO App</h1><hr />
       <h3 align='left' id='greetUser'></h3>
-      <a align='right' href="/addTodo.html" >Add new To-Do</a>
+      <a align='right' href="/addTodo.html" ><b></b>Add new To-Do</a>
+    </div><hr>
+    <div class="contents">
+      <h3>Your toDo's</h3>
+      <div id="toDOList">
+      </div>
     </div>
   </body>
 </html>

@@ -15,11 +15,7 @@ div.pageContent{
   /* margin-left: 100px; */
   /* margin-right: 200px; */
 }
-div.flowerImg{
-  height: 100%;
-  width: 800px;
-  float: left;
-}
+
 div.content{
   /*margin-right: 200px;*/
   /*margin-top: 200px;*/
@@ -40,12 +36,7 @@ div.comment{
   position: relative;
   font-size: 10px;
 }
-#flower1{
-  height:500px;
-  width:800px;
-  align:left;
-  position: relative;
-};
+
 #name{
   width: 100px;
   height: 40px;
@@ -63,23 +54,6 @@ div.info{
   position: relative;
 }
 
-#image1{
-  width: 500px;
-  height: 400px;
-  align: left;
-  position: relative;
-}
-#para1{
-  width: 300px;
-  height: 400px;
-  position:relative;
-}
-div.pic_para{
-  width:350px;
-  height:500px;
-  margin-right: 100px;
-  float: right;
-}
 div.book{
   width:1000px;
   height:600px;

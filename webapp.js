@@ -1,4 +1,3 @@
-const displayContents=require('./utils.js').displayContents;
 const toKeyValue = kv=>{
     let parts = kv.split('=');
     return {key:parts[0].trim(),value:parts[1].trim()};
@@ -51,7 +50,6 @@ let urlIsOneOf = function(urls){
 const main = function(req,res){
   // console.log(req.headers);
   res.redirect = redirect.bind(res);
-  res.displayContents = displayContents.bind(res);
   req.urlIsOneOf = urlIsOneOf.bind(req);
   req.cookies = parseCookies(req.headers.cookie||'');
   let content="";
