@@ -2,6 +2,7 @@ let docType={
   'html': 'text/html',
   'css' : 'text/css',
   'jpg' : 'image/jpg',
+  'jpeg':'image/jpg',
   'gif' : 'image/gif',
   'pdf' : 'application/pdf',
   'js' : 'text/javascript',
