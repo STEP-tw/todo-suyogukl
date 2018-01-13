@@ -1,18 +1,27 @@
 {
-  "name": "TO-DO App",
-  "version": "3.0.0",
-  "description": "",
-  "main": "test.js",
+  "name": "To-Do App",
+  "version": "1.0.0",
+  "description": "## Objective",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
   "dependencies": {
-    "chai": "^4.1.2"
+    "chai": "^4.1.2",
+    "mocha": "^3.4.2"
   },
-  "devDependencies": {
-    "mocha": "^3.4.2",
-    "chai":"^5.6.0"
-  },
+  "devDependencies": {},
   "scripts": {
-    "test": "mocha"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/STEP-tw/todo-suyogukl.git"
   },
   "author": "",
-  "license": "Apache 2.0"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/STEP-tw/todo-suyogukl/issues"
+  },
+  "homepage": "https://github.com/STEP-tw/todo-suyogukl#readme"
 }

@@ -4,6 +4,7 @@ class ToDoList {
     this.title=title;
     this.description=description||'';
     this.toDoItems={};
+    this.id=0;
   }
   addTitle(title){
     return this.title=title;
@@ -12,7 +13,7 @@ class ToDoList {
     return this.description=description;
   }
   addtoDoItem(item){
-    this.toDoItems[`${item.text}`]=new Item(item);
+    this.toDoItems[++this.id]=new Item(item);
     return;
   }
   get getToDoItem(){

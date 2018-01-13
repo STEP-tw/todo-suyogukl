@@ -12,7 +12,6 @@ let docType={
 };
 
 let serveFile=function(req,res){
-  console.log('hello')
   let path=req.url;
   if(path=='/')path='/index.html';
   debugger;
