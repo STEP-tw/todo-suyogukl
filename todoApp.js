@@ -47,18 +47,12 @@ const use = function(handler){
 let urlIsOneOf = function(urls){
   return urls.includes(this.url);
 }
-const main = function(req,res){
-  // console.log(req.headers);
-  res.redirect = redirect.bind(res);
-  req.urlIsOneOf = urlIsOneOf.bind(req);
-  req.cookies = parseCookies(req.headers.cookie||'');
+const executeMiddleware=function(req,res){
   let content="";
   req.on('data',data=>content+=data.toString())
   req.on('end',()=>{
     req.body = parseBody(content);
-    console.log(req.body);
     content="";
-    debugger;
     this._preprocess.forEach(middleware=>{
       if(res.finished) return;
       middleware(req,res);
@@ -66,7 +60,16 @@ const main = function(req,res){
     if(res.finished) return;
     invoke.call(this,req,res);
   });
+}
+const main = function(req,res){
+  res.redirect = redirect.bind(res);
+  req.urlIsOneOf = urlIsOneOf.bind(req);
+  req.cookies = parseCookies(req.headers.cookie||'');
+  executeMiddleware.call(this,req,res);
 };
+const addMethods=function(){
+
+}
 
 let create = ()=>{
   let rh = (req,res)=>{

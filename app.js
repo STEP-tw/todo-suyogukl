@@ -1,8 +1,9 @@
 let fs = require('fs');
-const serveFile = require('./serveFile.js');
+const serveFile = require('./utils.js').serveFile;
 const timeStamp = require('./time.js').timeStamp;
-const User=require('./jsLib/toDoUser.js');
-const TODOApp = require('./webapp');
+const User=require('./public/js/user.js');
+const storeToDos = require('./utils.js').storeToDos;
+const TODOApp = require('./todoApp.js');
 let toS = o=>JSON.stringify(o,null,2);
 let registered_users = [{userName:'suyog',name:'suyog ukalkar',password:'suyog'},{userName:'shubham',name:'shubham jaybhaye',password:'shubham'}];
 
@@ -29,7 +30,7 @@ let loadUser = (req,res)=>{
   }
 };
 let redirectLoggedInUserToHome = (req,res)=>{
-  if(req.urlIsOneOf(['/addTodo','/login']) && req.user) res.redirect('/addTodo.html');
+  if(req.urlIsOneOf(['/','/addTodo','/login']) && req.user) res.redirect('/addTodo.html');
 }
 let redirectLoggedOutUserToLogin = (req,res)=>{
   if(req.urlIsOneOf(['/addTodo','/addTodo.html','/logout']) && !req.user) res.redirect('/login');
@@ -37,6 +38,7 @@ let redirectLoggedOutUserToLogin = (req,res)=>{
 
 
 let app = TODOApp.create();
+console.log(app);
 app.use(logRequest);
 app.use(loadUser);
 app.use(redirectLoggedInUserToHome);
@@ -49,7 +51,7 @@ app.get('/login',(req,res)=>{
   console.log(req.body);
   console.log(req.headers);
   let loginPage=fs.readFileSync(`./public/login.html`,'utf8');
-  loginPage = loginPage.replace('MESSAGE', req.cookies.message || '');
+  loginPage = loginPage.replace('message', req.cookies.message || '');
   res.setHeader('Content-type','text/html');
   res.write(loginPage);
   res.end();
@@ -82,14 +84,14 @@ app.post('/addTodo.html',(req,res)=>{
   res.redirect('/addTodo.html')
 })
 app.get('/logout',(req,res)=>{
+  console.log(req.user.sessionid);
   res.setHeader('Set-Cookie',[`loginFailed=false,Expires=${new Date(1).toUTCString()}`,`sessionid=0,Expires=${new Date(1).toUTCString()}`]);
   delete req.user.sessionid;
   res.redirect('/login');
 });
 
-app.post('/addTodo',function(req,res){
-  let data = req.body;
-  res.write(data.toString());
-  res.end();
+app.post('/addTodo.html',function(req,res){
+  storeToDos(req,res);
+  res.redirect('/addTodo.html')
 })
 module.exports = app;
