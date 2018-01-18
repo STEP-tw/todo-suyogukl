@@ -4,22 +4,23 @@ class ToDoItem {
     this.status=false;
     this.id=id;
   }
-  get getText(){
+  get itsId(){
+    return this.id;
+  }
+  get itsText(){
     return this.text;
   }
-  get getStatus(){
+  get itsStatus(){
     return this.status;
+  }
+  updateText(textToUpdate){
+    return this.text=textToUpdate;
   }
   markDone(){
     this.status = true;
-    return;
   }
   markNotDone(){
     this.status=false;
-    return;
-  }
-  get getId(){
-    return this.id;
   }
 }
 

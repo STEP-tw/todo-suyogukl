@@ -1,7 +1,7 @@
 let fs = require('fs');
 const serveFile = require('./utils.js').serveFile;
 const timeStamp = require('./time.js').timeStamp;
-const User=require('./public/js/user.js');
+const User=require('./js/user.js');
 const storeToDos = require('./utils.js').storeToDos;
 const TODOApp = require('./todoApp.js');
 let toS = o=>JSON.stringify(o,null,2);
@@ -44,9 +44,9 @@ app.use(loadUser);
 app.use(redirectLoggedInUserToHome);
 app.use(redirectLoggedOutUserToLogin);
 app.use(serveFile);
-app.get('/',(req,res)=>{
-  res.redirect('/index.html')
-})
+// app.get('/',(req,res)=>{
+//   res.redirect('/index.html')
+// })
 app.get('/login',(req,res)=>{
   console.log(req.body);
   console.log(req.headers);

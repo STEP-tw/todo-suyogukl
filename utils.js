@@ -1,5 +1,5 @@
 const fs = require('fs');
-const ToDo = require('./public/js/todolist.js');
+const ToDo = require('./js/todolist.js');
 
 let docType={
   'html': 'text/html',
