@@ -37,7 +37,7 @@ describe('app',()=>{
   describe('POST /login',()=>{
     it('redirects to addTodo.html for valid user login',done=>{
       request(app,{method:'POST',url:'/login',body:'userName=suyog&password=suyog'},res=>{
-        th.should_be_redirected_to(res,'/addTodo.html');
+        th.should_be_redirected_to(res,'/homePage');
         th.should_not_have_cookie(res,'message');
         done();
       })

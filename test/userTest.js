@@ -50,11 +50,11 @@ describe('Tests for User',()=>{
       ]);
     })
   })
-  describe('#getAllTitleOfList()',()=>{
+  describe('#getAllTitles()',()=>{
     it('should return all titles of user todo`s',()=>{
       suyog.addUserToDo('hello','world');
       suyog.addUserToDo('good','morning');
-      assert.deepEqual(suyog.getAllTitleOfList(),[ 'hello', 'good' ]);
+      assert.deepEqual(suyog.getAllTodoTitles(),[ 'hello', 'good' ]);
     })
   })
   describe('#updateTitleOfTodo()',()=>{
@@ -62,7 +62,7 @@ describe('Tests for User',()=>{
       suyog.addUserToDo('hello','world');
       suyog.addUserToDo('good','morning');
       suyog.updateTitleOfTodo('1','goodBye');
-      assert.deepEqual(suyog.getAllTitleOfList(),[ 'goodBye', 'good' ]);
+      assert.deepEqual(suyog.getAllTodoTitles(),[ 'goodBye', 'good' ]);
     })
   })
   describe('#getTitleOfSpecificTodo()',()=>{
