@@ -13,23 +13,6 @@ let docType={
   'ico':'image/x-icon'
 };
 
-let serveFile=function(req,res){
-  let path=req.url;
-  if(path=='/')path='/index.html';
-  debugger;
-  if(fs.existsSync(`./public${path}`)&&req.method!='POST'){
-    let getDocType=path.split('.')[1];
-    let getFilePath=`./public${path}`;
-    let type=docType[getDocType];
-    let content=fs.readFileSync(getFilePath);
-    res.setHeader("Content-Type",type);
-    res.statusCode = 200;
-    debugger;
-    res.write(content);
-    res.end();
-  }
-}
-
 let storeToDos=function(req,res){
   let todo=req.body;
   todo.Date=new Date().toLocaleString();
@@ -55,4 +38,3 @@ let showTODO=function(){
 }
 exports.storeToDos=storeToDos;
 exports.showTODO=showTODO;
-exports.serveFile=serveFile;

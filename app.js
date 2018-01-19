@@ -1,7 +1,7 @@
 let fs = require('fs');
 const LoginHandler = require("./handlers/login_handler");
 const PostLoginHandler = require("./handlers/post_login_handler");
-const serveFile = require('./utils.js').serveFile;
+const StaticFileHandler = require("./handlers/static_file_handler");
 const timeStamp = require('./time.js').timeStamp;
 const suyog = require("./dummyUser.js");
 const storeToDos = require('./utils.js').storeToDos;
@@ -30,7 +30,7 @@ let redirectLoggedInUserToHome = (req,res)=>{
   if(req.urlIsOneOf(['/','/addTodo','/login']) && req.user) res.redirect('/addTodo.html');
 }
 let redirectLoggedOutUserToLogin = (req,res)=>{
-  if(req.urlIsOneOf(['/addTodo','/addTodo.html','/logout']) && !req.user) res.redirect('/login');
+  if(req.urlIsOneOf(['/addTodo','/logout',"/homePage"]) && !req.user) res.redirect('/login');
 }
 
 const serveHomePage=(req,res)=>{
@@ -43,12 +43,7 @@ const serveHomePage=(req,res)=>{
   res.write(home);
   res.end();
 }
-const serveAddTodoPage=(req,res)=>{
-  let data=fs.readFileSync(`./public/`);
-  res.setHeader('Content-type','text/html');
-  res.write(data);
-  res.end();
-}
+
 const servePostAddTodoPage=(req,res)=>{
   console.log(req.method);
   console.log(req.headers);
@@ -67,13 +62,10 @@ app.use(logRequest);
 app.use(loadUser);
 app.use(redirectLoggedInUserToHome);
 app.use(redirectLoggedOutUserToLogin);
-app.use(serveFile);
-
+app.use(new StaticFileHandler(fs,"public").getRequestHandler());
 app.get('/login',new LoginHandler(fs).getRequestHandler());
 app.post('/login', new PostLoginHandler(fs,registered_users).getRequestHandler());
 app.get('/homePage',serveHomePage);
-app.get('/addTodo',serveAddTodoPage);
-app.post('/addTodo',servePostAddTodoPage);
 app.get('/logout',serveLogOut);
 
 module.exports = app;
