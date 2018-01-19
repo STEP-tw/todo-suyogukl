@@ -1,4 +1,5 @@
 let fs = require('fs');
+const LoginHandler = require("./handlers/login_handler");
 const serveFile = require('./utils.js').serveFile;
 const timeStamp = require('./time.js').timeStamp;
 const suyog = require("./dummyUser.js");
@@ -30,13 +31,6 @@ let redirectLoggedInUserToHome = (req,res)=>{
 let redirectLoggedOutUserToLogin = (req,res)=>{
   if(req.urlIsOneOf(['/addTodo','/addTodo.html','/logout']) && !req.user) res.redirect('/login');
 }
-const serveLoginPage=(req,res)=>{
-  let loginPage=fs.readFileSync(`./public/login.html`,'utf8');
-  loginPage = loginPage.replace('message', req.cookies.message || '');
-  res.setHeader('Content-type','text/html');
-  res.write(loginPage);
-  res.end();
-};
 const servePostLoginPage=(req,res)=>{
   let sessionid = new Date().getTime();
   let user = registered_users.find(u=>{
@@ -88,7 +82,7 @@ app.use(redirectLoggedInUserToHome);
 app.use(redirectLoggedOutUserToLogin);
 app.use(serveFile);
 
-app.get('/login',serveLoginPage);
+app.get('/login',new LoginHandler(fs).getRequestHandler());
 app.post('/login',servePostLoginPage);
 app.get('/homePage',serveHomePage);
 app.get('/addTodo',serveAddTodoPage);

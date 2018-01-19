@@ -6,6 +6,7 @@ let request = function(app,options,onComplete){
   req.method = options.method;
   req.url = options.url;
   req.headers = options.headers||{};
+  req.cookies=options.cookies||{};
   let res={
     end:()=>{
       res.finished = true;
