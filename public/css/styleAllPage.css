@@ -12,6 +12,9 @@ div.pageContent{
   height: 500px;
 }
 
+#todoHeading{
+  text-align: center;
+}
 div.content{
   height: 600px;
   width: 300px;
@@ -57,6 +60,10 @@ div.book{
 #comment{
   width:500px;
   align-items: right;
+}
+#logout{
+  position: fixed;
+  margin-left: 1500px;
 }
 #todoContainer{
   margin-left: 700px;

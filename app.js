@@ -56,7 +56,8 @@ const serveHomePage=(req,res)=>{
   let home=fs.readFileSync(`./templates/home`,"utf8");
   let todos = suyog.titlesWithIDs;
   let html = toHtml.todos(todos);
-  home=home.replace("todoHolder",html)
+  home=home.replace("todoHolder",html);
+  home=home.replace("${name}",suyog.name);
   res.setHeader('Content-type','text/html');
   res.write(home);
   res.end();
