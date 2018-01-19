@@ -35,29 +35,14 @@ let redirectLoggedInUserToHome = (req,res)=>{
 let redirectLoggedOutUserToLogin = (req,res)=>{
   if(req.urlIsOneOf(['/addTodo','/addTodo.html','/logout']) && !req.user) res.redirect('/login');
 }
-
-
-let app = TODOApp.create();
-console.log(app);
-app.use(logRequest);
-app.use(loadUser);
-app.use(redirectLoggedInUserToHome);
-app.use(redirectLoggedOutUserToLogin);
-app.use(serveFile);
-// app.get('/',(req,res)=>{
-//   res.redirect('/index.html')
-// })
-app.get('/login',(req,res)=>{
-  console.log(req.body);
-  console.log(req.headers);
+const serveLoginPage=(req,res)=>{
   let loginPage=fs.readFileSync(`./public/login.html`,'utf8');
   loginPage = loginPage.replace('message', req.cookies.message || '');
   res.setHeader('Content-type','text/html');
   res.write(loginPage);
   res.end();
-});
-
-app.post('/login',(req,res)=>{
+};
+const servePostLoginPage=(req,res)=>{
   let sessionid = new Date().getTime();
   let user = registered_users.find(u=>{
     return u.userName==req.body.userName&&u.password==req.body.password;
@@ -65,33 +50,51 @@ app.post('/login',(req,res)=>{
   if(user) {
     res.setHeader('Set-Cookie',`sessionid=${sessionid}`);
     user.sessionid = sessionid;
-    res.redirect('/addTodo.html');
+    res.redirect('/homePage');
     return;
   }
   res.setHeader('Set-Cookie',`message=Login Failed; Max-Age=5`);
   res.redirect('/login');
   return;
-});
-
-
-app.get('/addTodo.html',(req,res)=>{
-  let data=fs.readFileSync(`./public${req.url}`);
+}
+const serveHomePage=(req,res)=>{
+  console.log('hello');
+  let data=fs.readFileSync(`./public/homePage.html`);
   res.setHeader('Content-type','text/html');
   res.write(data);
   res.end();
-});
-app.post('/addTodo.html',(req,res)=>{
-  res.redirect('/addTodo.html')
-})
-app.get('/logout',(req,res)=>{
-  console.log(req.user.sessionid);
+}
+const serveAddTodoPage=(req,res)=>{
+  let data=fs.readFileSync(`./public/`);
+  res.setHeader('Content-type','text/html');
+  res.write(data);
+  res.end();
+}
+const servePostAddTodoPage=(req,res)=>{
+  console.log(req.method);
+  console.log(req.headers);
+  console.log(req.body);
+  res.redirect('/addTodo');
+}
+const serveLogOut=(req,res)=>{
   res.setHeader('Set-Cookie',[`loginFailed=false,Expires=${new Date(1).toUTCString()}`,`sessionid=0,Expires=${new Date(1).toUTCString()}`]);
   delete req.user.sessionid;
   res.redirect('/login');
-});
+}
 
-app.post('/addTodo.html',function(req,res){
-  storeToDos(req,res);
-  res.redirect('/addTodo.html')
-})
+
+let app = TODOApp.create();
+app.use(logRequest);
+app.use(loadUser);
+app.use(redirectLoggedInUserToHome);
+app.use(redirectLoggedOutUserToLogin);
+app.use(serveFile);
+
+app.get('/login',serveLoginPage);
+app.post('/login',servePostLoginPage);
+app.get('/homePage',serveHomePage);
+app.get('/addTodo',serveAddTodoPage);
+app.post('/addTodo',servePostAddTodoPage);
+app.get('/logout',serveLogOut);
+
 module.exports = app;

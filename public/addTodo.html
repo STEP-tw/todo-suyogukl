@@ -3,22 +3,25 @@
   <head>
     <meta charset="utf-8">
     <title>Add ToDo</title>
-    <script src="jsLib/displayTodo.js" charset="utf-8"></script>
+    <script type="text/javascript" src='lib/createItem.js'>
+
+    </script>
   </head>
-  <body onload='display()'>
+  <body >
     <div >
-      <div class="">
+      <div >
         <h1 align='center'>TO-DO App</h1><hr />
         <h3 align='left' id='greetUser'></h3>
       </div>
-      <form class="" action="addTodo.html" method="POST">
-        <b>Title:</b><input id="title"type="text" name="title" value="" required/><br><br>
-        <b>Discription:</b><textarea type="text" id="desc"name="discription" value="" required></textarea>
-        <br /><br /><b>To-Do items:</b>
-        <div id='items'></div>
-        <br><br><input type="submit" value="Submit"><hr/>
+      <form action="/addTodo" method="POST">
+        <b>Title:</b><input id="title"type="text" name="title" value="" contentEditable = "true" required/><br><br>
+        <b>Discription:</b><textarea type="text" id="desc"name="discription" value="" contentEditable = "true" required></textarea>
+        <br><br /><br /><input type="submit" value="Submit"><hr/>
+        <b>To-Do items:</b><br>
       </form><hr />
-      <a href="/logout" align='right'>LogOut</a>
+      <button type="button" name="itemCreator" onclick='createItem()'>Create new item</button>
+      <br><br><a href="/logout" align='right'>LogOut</a>
+      <a href="/homePage">Home Page</a>
     </div>
   </body>
 </html>

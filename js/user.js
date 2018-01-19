@@ -22,16 +22,23 @@ class User {
     let index=this.todos.findIndex((a)=>a.toDoId==id);
     this.todos.splice(index,1);
   }
-  getAllTitleOfList(){
+  getAllTodoTitles(){
     return this.todos.map((a)=>a.title);
   }
+  getSpecificTodo(id){
+    return this.todos.find((a)=>a.id==id);
+  }
   getSpecificTodoTitle(id){
-    let todo=this.todos.find((a)=>a.id==id);
+    let todo=this.getSpecificTodo(id);
     return todo.title;
   }
   updateTitleOfTodo(id,title){
-    let todo=this.todos.find((a)=>a.id==id);
+    let todo=this.getSpecificTodo(id);
     todo.updateTitle(title);
+  }
+  getItemsOfSpecificTodo(id){
+    let todo=this.getSpecificTodo(id);
+    return todo.items;
   }
 }
 module.exports = User;
