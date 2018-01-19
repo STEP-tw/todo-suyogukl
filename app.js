@@ -2,10 +2,10 @@ let fs = require('fs');
 const LoginHandler = require("./handlers/login_handler");
 const PostLoginHandler = require("./handlers/post_login_handler");
 const StaticFileHandler = require("./handlers/static_file_handler");
+const HomePageHandler = require("./handlers/home_page_handler");
 const timeStamp = require('./time.js').timeStamp;
 const suyog = require("./dummyUser.js");
 const storeToDos = require('./utils.js').storeToDos;
-const toHtml = require("./toHtml/toHtml.js");
 const TODOApp = require('./todoApp.js');
 let toS = o=>JSON.stringify(o,null,2);
 let registered_users = [{userName:'suyog',name:'suyog ukalkar',password:'a'},{userName:'shubham',name:'shubham jaybhaye',password:'shubham'}];
@@ -56,6 +56,7 @@ const serveLogOut=(req,res)=>{
   res.redirect('/login');
 }
 
+let homeTemp = fs.readFileSync("./templates/home","utf8");
 
 let app = TODOApp.create();
 app.use(logRequest);
@@ -65,7 +66,7 @@ app.use(redirectLoggedOutUserToLogin);
 app.use(new StaticFileHandler(fs,"public").getRequestHandler());
 app.get('/login',new LoginHandler(fs).getRequestHandler());
 app.post('/login', new PostLoginHandler(fs,registered_users).getRequestHandler());
-app.get('/homePage',serveHomePage);
+app.get('/homePage',new HomePageHandler(homeTemp).getRequestHandler());
 app.get('/logout',serveLogOut);
 
 module.exports = app;
