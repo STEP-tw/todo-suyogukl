@@ -1,5 +1,6 @@
 let fs = require('fs');
 const LoginHandler = require("./handlers/login_handler");
+const PostLoginHandler = require("./handlers/post_login_handler");
 const serveFile = require('./utils.js').serveFile;
 const timeStamp = require('./time.js').timeStamp;
 const suyog = require("./dummyUser.js");
@@ -31,21 +32,7 @@ let redirectLoggedInUserToHome = (req,res)=>{
 let redirectLoggedOutUserToLogin = (req,res)=>{
   if(req.urlIsOneOf(['/addTodo','/addTodo.html','/logout']) && !req.user) res.redirect('/login');
 }
-const servePostLoginPage=(req,res)=>{
-  let sessionid = new Date().getTime();
-  let user = registered_users.find(u=>{
-    return u.userName==req.body.userName&&u.password==req.body.password;
-  });
-  if(user) {
-    res.setHeader('Set-Cookie',`sessionid=${sessionid}`);
-    user.sessionid = sessionid;
-    res.redirect('/homePage');
-    return;
-  }
-  res.setHeader('Set-Cookie',`message=Login Failed; Max-Age=5`);
-  res.redirect('/login');
-  return;
-}
+
 const serveHomePage=(req,res)=>{
   let home=fs.readFileSync(`./templates/home`,"utf8");
   let todos = suyog.titlesWithIDs;
@@ -83,7 +70,7 @@ app.use(redirectLoggedOutUserToLogin);
 app.use(serveFile);
 
 app.get('/login',new LoginHandler(fs).getRequestHandler());
-app.post('/login',servePostLoginPage);
+app.post('/login', new PostLoginHandler(fs,registered_users).getRequestHandler());
 app.get('/homePage',serveHomePage);
 app.get('/addTodo',serveAddTodoPage);
 app.post('/addTodo',servePostAddTodoPage);
