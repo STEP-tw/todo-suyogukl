@@ -22,7 +22,8 @@ let request = function(app,options,onComplete){
     write:(text)=>res_contents+=text,
     redirect:(path)=>{
       res_headers.location=path;
-      res_headers.statusCode=302;
+      res.statusCode=302;
+      res.end();
     }
   };
   app(req,res);

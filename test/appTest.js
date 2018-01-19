@@ -29,22 +29,6 @@ describe('app', () => {
       })
       done();
     });
-  })
-
-  describe('POST /login', () => {
-    let allowedUsers=[];
-    beforeEach(() => {
-      allowedUsers = [{ userName: 'suyog', name: 'suyog ukalkar', password: 'a' }];
-    });
-    it('should redirect to /login when username is incorrect', () => {
-      let fs = new Fs("Welcome to login page");
-      let handler = new PostLoginHandler(fs, allowedUsers).getRequestHandler();
-      let body = { userName: "suyogg" };
-      request(handler, { method: 'POST', url: '/login', body: body }, res => {
-        th.should_be_redirected_to(res, "/login");
-        th.should_have_cookie(res, "message", "Login Failed; Max-Age=5");
-      })
-    })
     it('should serve login page with login failed message when cookie contains login failed', (done) => {
       let fs = new Fs("Login Failed");
       let handler = new LoginHandler(fs).getRequestHandler();
@@ -58,14 +42,32 @@ describe('app', () => {
       })
       done();
     });
-  });
-  it.skip('redirects to addTodo.html for valid user login', done => {
-    request(app, { method: 'GET', url: '/login', }, res => {
-      th.should_be_redirected_to(res, "/homePage");
-      th.should_not_have_cookie(res, 'message');
-      done();
-    })
   })
+
+  describe('POST /login', () => {
+    let allowedUsers = [];
+    beforeEach(() => {
+      allowedUsers = [{ userName: 'suyog', name: 'suyog ukalkar', password: 'a' }];
+    });
+    it('should redirect to /login when username is incorrect', () => {
+      let fs = new Fs("Welcome to login page");
+      let handler = new PostLoginHandler(fs, allowedUsers).getRequestHandler();
+      let body = { userName: "suyogg" };
+      request(handler, { method: 'POST', url: '/login', body: body }, res => {
+        th.should_be_redirected_to(res, "/login");
+        th.should_have_cookie(res, "message", "Login Failed; Max-Age=5");
+      })
+    })
+    it('redirects to /homePage when user is valid',()=> {
+      let body = { userName: "suyog", password: "a" };
+      let fs = new Fs("Welcome to login page");
+      let handler = new PostLoginHandler(fs, allowedUsers).getRequestHandler();
+      request(handler, { method: 'POST', url: '/login', body: body }, res => {
+        th.should_be_redirected_to(res, "/homePage");
+        th.should_not_have_cookie(res, 'message');
+      })
+    })
+  });
   describe('GET /logout', () => {
     it('if not logged in it redirects to /login', done => {
       request(app, { method: 'GET', url: '/logout' }, res => {
