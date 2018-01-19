@@ -6,19 +6,13 @@ div.main{
 div.heading{
   width:1200px;
   height: 150px;
-  /* margin-left: 100px; */
-  /* margin-right: 200px; */
 }
 div.pageContent{
   width:1200px;
   height: 500px;
-  /* margin-left: 100px; */
-  /* margin-right: 200px; */
 }
 
 div.content{
-  /*margin-right: 200px;*/
-  /*margin-top: 200px;*/
   height: 600px;
   width: 300px;
   padding-top: 100px;
@@ -63,4 +57,8 @@ div.book{
 #comment{
   width:500px;
   align-items: right;
+}
+#todoContainer{
+  margin-left: 700px;
+  margin-top: 200px;
 }

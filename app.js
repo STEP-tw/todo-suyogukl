@@ -1,18 +1,12 @@
 let fs = require('fs');
 const serveFile = require('./utils.js').serveFile;
 const timeStamp = require('./time.js').timeStamp;
-const User=require('./js/user.js');
+const suyog = require("./dummyUser.js");
 const storeToDos = require('./utils.js').storeToDos;
 const TODOApp = require('./todoApp.js');
 let toS = o=>JSON.stringify(o,null,2);
-let registered_users = [{userName:'suyog',name:'suyog ukalkar',password:'suyog'},{userName:'shubham',name:'shubham jaybhaye',password:'shubham'}];
+let registered_users = [{userName:'suyog',name:'suyog ukalkar',password:'a'},{userName:'shubham',name:'shubham jaybhaye',password:'shubham'}];
 
-// let createUser=function(userName,password,userName){
-//   let fileData=fs.readFileSync('./data/toDoDatabase.js','utf8')
-//   let fileData = fileData&&JSON.parse(fileData)||[];
-//   registered_users.unshift(new User('suyog','suyog','Suyog Ukalkar'));
-//   return;
-// }
 let logRequest = (req,res)=>{
   let text = ['------------------------------',
     `${timeStamp()}`,
@@ -58,10 +52,12 @@ const servePostLoginPage=(req,res)=>{
   return;
 }
 const serveHomePage=(req,res)=>{
-  console.log('hello');
-  let data=fs.readFileSync(`./public/homePage.html`);
+  let home=fs.readFileSync(`./templates/home`,"utf8");
+  let todos = suyog.titlesWithIDs;
+  let html = toHtml.todos(todos);
+  home=home.replace("todoHolder",html)
   res.setHeader('Content-type','text/html');
-  res.write(data);
+  res.write(home);
   res.end();
 }
 const serveAddTodoPage=(req,res)=>{
