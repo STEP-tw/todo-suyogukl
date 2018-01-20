@@ -3,6 +3,7 @@ let assert = chai.assert;
 const Fs = require("./dummyFS");
 const LoginHandler = require("../handlers/login_handler");
 const PostLoginHandler = require("../handlers/post_login_handler");
+const HomePageHandler = require("../handlers/home_page_handler");
 let request = require('./requestSimulator.js');
 let app = require('../app.js');
 let th = require('./testHelper.js');
@@ -76,20 +77,23 @@ describe('app', () => {
       })
     })
   })
-  describe('GET /addTodo', () => {
-    it('redirects to / if not logged in', done => {
+  describe.skip('GET /addTodo', () => {
+    it('redirects to / if not logged in', ()=> {
       request(app, { method: 'GET', url: '/addTodo' }, res => {
         th.should_be_redirected_to(res, '/login');
-        done();
       })
     })
   })
-  describe('tests after logged in', () => {
-    request(app, { method: 'POST', url: '/login', body: 'username=suyog&password=suyog' }, (res) => {
-      let sessionid = res.headers['Set-Cookie'];
-      let headers = {
-        cookie: sessionid
-      }
-    })
-  })
+  describe('GET /homePage', () => {
+    it('should serve content of home page when asked', () => {
+      let templateContent = "Welcome ${name}";
+      let fs = new Fs(templateContent);
+      let handler = new HomePageHandler(templateContent).getRequestHandler();
+      let user = { userName: "suyog" };
+      request(handler, { method: 'GET', url: '/homePage', user: user }, res => {
+        th.status_is_ok(res)
+        th.body_contains(res,"Welcome suyog");
+      })
+    });
+  });
 })

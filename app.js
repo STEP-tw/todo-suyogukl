@@ -4,7 +4,6 @@ const PostLoginHandler = require("./handlers/post_login_handler");
 const StaticFileHandler = require("./handlers/static_file_handler");
 const HomePageHandler = require("./handlers/home_page_handler");
 const timeStamp = require('./time.js').timeStamp;
-const suyog = require("./dummyUser.js");
 const storeToDos = require('./utils.js').storeToDos;
 const TODOApp = require('./todoApp.js');
 let toS = o=>JSON.stringify(o,null,2);
@@ -33,16 +32,6 @@ let redirectLoggedOutUserToLogin = (req,res)=>{
   if(req.urlIsOneOf(['/addTodo','/logout',"/homePage"]) && !req.user) res.redirect('/login');
 }
 
-const serveHomePage=(req,res)=>{
-  let home=fs.readFileSync(`./templates/home`,"utf8");
-  let todos = suyog.titlesWithIDs;
-  let html = toHtml.todos(todos);
-  home=home.replace("todoHolder",html);
-  home=home.replace("${name}",suyog.name);
-  res.setHeader('Content-type','text/html');
-  res.write(home);
-  res.end();
-}
 
 const servePostAddTodoPage=(req,res)=>{
   console.log(req.method);

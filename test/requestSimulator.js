@@ -8,6 +8,7 @@ let request = function(app,options,onComplete){
   req.headers = options.headers||{};
   req.cookies=options.cookies||{};
   req.body=options.body||{};
+  req.user=options.user||{};
   let res={
     end:()=>{
       res.finished = true;

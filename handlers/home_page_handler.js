@@ -6,11 +6,12 @@ class HomePageHandler extends ToDoHandler{
     this.temp=temp;
   }
   execute(req,res){
+    if(!req.user) return;
     let todos = this.user.titlesWithIDs;
     let html = toHtml.todos(todos);
     let home = this.temp;
     home = home.replace("todoHolder", html);
-    home = home.replace("${name}", this.user.name);
+    home = home.replace("${name}", req.user.userName);
     res.setHeader('Content-type', 'text/html');
     res.write(home);
     res.end();
