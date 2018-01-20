@@ -38,16 +38,8 @@ describe('Tests for User', () => {
     it('should return todos`s of user', () => {
       suyog.addTodo('title', 'description');
       suyog.addTodo('good', 'morning');
-      suyog.removeTodo('good', 'morning');
-      assert.deepEqual(suyog.allToDo, [
-        {
-          "id": 1,
-          "itemId": 0,
-          "toDoItems": [],
-          "todoDescription": "description",
-          "todoTitle": "title"
-        }
-      ]);
+      suyog.removeTodo(2);
+      assert.notInclude(suyog.getAllTodoTitles(),"good");
     })
   })
   describe('#getAllTitles()', () => {

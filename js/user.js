@@ -27,8 +27,10 @@ class User {
     this.todos.push(new ToDo(title,discription,++this.toDoId));
   }
   removeTodo(id){
-    let index=this.todos.findIndex((a)=>a.toDoId==id);
+    let index=this.todos.findIndex((a)=>a.id==id);
+    if(index==-1)return false;
     this.todos.splice(index,1);
+    return true;
   }
   getAllTodoTitles(){
     return this.todos.map((a)=>a.title);

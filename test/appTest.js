@@ -1,9 +1,11 @@
 let chai = require('chai');
+let dummyUser = require("../dummyUser");
 let assert = chai.assert;
 const Fs = require("./dummyFS");
 const LoginHandler = require("../handlers/login_handler");
 const PostLoginHandler = require("../handlers/post_login_handler");
 const HomePageHandler = require("../handlers/home_page_handler");
+const TodoListHandler = require("../handlers/todo_list_handler");
 const LogoutHandler = require("../handlers/logout_handler");
 let request = require('./requestSimulator.js');
 let app = require('../app.js');
@@ -60,7 +62,7 @@ describe('app', () => {
         th.should_have_cookie(res, "message", "Login Failed; Max-Age=5");
       })
     })
-    it('redirects to /homePage when user is valid',()=> {
+    it('redirects to /homePage when user is valid', () => {
       let body = { userName: "suyog", password: "a" };
       let fs = new Fs("Welcome to login page");
       let handler = new PostLoginHandler(fs, allowedUsers).getRequestHandler();
@@ -72,7 +74,7 @@ describe('app', () => {
   });
   describe('GET /logout', () => {
     let handler = new LogoutHandler().getRequestHandler();
-      it('if not logged in it redirects to /login', done => {
+    it('if not logged in it redirects to /login', done => {
       request(handler, { method: 'GET', url: '/logout' }, res => {
         th.should_be_redirected_to(res, '/login');
         done();
@@ -90,7 +92,7 @@ describe('app', () => {
     });
   })
   describe.skip('GET /addTodo', () => {
-    it('redirects to / if not logged in', ()=> {
+    it('redirects to / if not logged in', () => {
       request(app, { method: 'GET', url: '/addTodo' }, res => {
         th.should_be_redirected_to(res, '/login');
       })
@@ -104,8 +106,21 @@ describe('app', () => {
       let user = { userName: "suyog" };
       request(handler, { method: 'GET', url: '/homePage', user: user }, res => {
         th.status_is_ok(res)
-        th.body_contains(res,"Welcome suyog");
+        th.body_contains(res, "Welcome suyog");
       })
     });
   });
+  describe('TODOACTIONS', () => {
+    describe('/deletetodo', () => {
+      it.skip('should delete todo from list', () => {
+        let user = { userName: "suyog" };
+        let body = { itemId:1};
+        let handler = new TodoListHandler("delete").getRequestHandler();
+        request(handler, { method: 'POST', url: '/deleteTodo', user: user, dummyUser: dummyUser }, res => {
+          th.status_is_ok(res);
+          assert.isOk(JSON.parse(res.body));
+        });
+      });
+    });
+  })
 })

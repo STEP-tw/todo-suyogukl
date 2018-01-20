@@ -9,6 +9,7 @@ let request = function(app,options,onComplete){
   req.cookies=options.cookies||{};
   req.body=options.body||{};
   req.user=options.user||{};
+  req.dummyUser=options.dummyUser||{};
   let res={
     end:()=>{
       res.finished = true;
