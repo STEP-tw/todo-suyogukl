@@ -55,7 +55,7 @@ const executeMiddleware=function(req,res){
     content="";
     this._preprocess.forEach(middleware=>{
       if(res.finished) return;
-      middleware(req,res);
+      middleware.getRequestHandler()(req,res);
     });
     if(res.finished) return;
     invoke.call(this,req,res);
@@ -67,9 +67,6 @@ const main = function(req,res){
   req.cookies = parseCookies(req.headers.cookie||'');
   executeMiddleware.call(this,req,res);
 };
-const addMethods=function(){
-
-}
 
 let create = ()=>{
   let rh = (req,res)=>{

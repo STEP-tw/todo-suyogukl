@@ -27,7 +27,7 @@ const servePostAddTodoPage=(req,res)=>{
 
 
 let homeTemp = fs.readFileSync("./templates/home","utf8");
-app.use(compositeHandler.getRequestHandler());
+app.use(compositeHandler);
 app.get('/login',new LoginHandler(fs));
 app.post('/login', new PostLoginHandler(fs,registered_users));
 app.get('/homePage',new HomePageHandler(homeTemp));
