@@ -22,13 +22,13 @@ const parseCookies = text=> {
 }
 let invoke = function(req,res){
   let handler = this._handlers[req.method][req.url];
+  handler &&  handler.execute.bind(handler)(req,res);
   if(!handler){
     res.statusCode = 404;
     res.write('File not found!');
     res.end();
     return;
   }
-  handler(req,res);
 }
 const initialize = function(){
   this._handlers = {GET:{},POST:{}};

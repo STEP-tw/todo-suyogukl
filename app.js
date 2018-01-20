@@ -4,35 +4,19 @@ const PostLoginHandler = require("./handlers/post_login_handler");
 const StaticFileHandler = require("./handlers/static_file_handler");
 const HomePageHandler = require("./handlers/home_page_handler");
 const LogoutHandler = require("./handlers/logout_handler");
+const LogRequestHandler = require("./handlers/log_request_handler");
+const LoadUserHandler= require("./handlers/load_user_Handler");
+const RedirectionHandler = require("./handlers/redirection_handler");
+const CompositeHandler = require("./handlers/composite_handler");
 const timeStamp = require('./time.js').timeStamp;
 const storeToDos = require('./utils.js').storeToDos;
-const TODOApp = require('./todoApp.js');
-let toS = o=>JSON.stringify(o,null,2);
+const app = require('./router.js').create();
 let registered_users = [{userName:'suyog',name:'suyog ukalkar',password:'a'},{userName:'shubham',name:'shubham jaybhaye',password:'shubham'}];
-
-let logRequest = (req,res)=>{
-  let text = ['------------------------------',
-    `${timeStamp()}`,
-    `${req.method} ${req.url}`,
-    `HEADERS=> ${toS(req.headers)}`,
-    `COOKIES=> ${toS(req.cookies)}`,
-    `BODY=> ${toS(req.body)}`,''].join('\n');
-  fs.appendFile('request.log',text,()=>{});
-}
-let loadUser = (req,res)=>{
-  let sessionid = req.cookies.sessionid;
-  let user = registered_users.find(u=>u.sessionid==sessionid);
-  if(sessionid && user){
-    req.user = user;
-  }
-};
-let redirectLoggedInUserToHome = (req,res)=>{
-  if(req.urlIsOneOf(['/','/addTodo','/login']) && req.user) res.redirect('/addTodo.html');
-}
-let redirectLoggedOutUserToLogin = (req,res)=>{
-  if(req.urlIsOneOf(['/addTodo','/logout',"/homePage"]) && !req.user) res.redirect('/login');
-}
-
+const compositeHandler = new CompositeHandler()
+  .addHandler(new LogRequestHandler(fs))
+  .addHandler(new LoadUserHandler(registered_users))
+  .addHandler(new RedirectionHandler())
+  .addHandler(new StaticFileHandler(fs, "public"))
 
 const servePostAddTodoPage=(req,res)=>{
   console.log(req.method);
@@ -43,16 +27,10 @@ const servePostAddTodoPage=(req,res)=>{
 
 
 let homeTemp = fs.readFileSync("./templates/home","utf8");
-
-let app = TODOApp.create();
-app.use(logRequest);
-app.use(loadUser);
-app.use(redirectLoggedInUserToHome);
-app.use(redirectLoggedOutUserToLogin);
-app.use(new StaticFileHandler(fs,"public").getRequestHandler());
-app.get('/login',new LoginHandler(fs).getRequestHandler());
-app.post('/login', new PostLoginHandler(fs,registered_users).getRequestHandler());
-app.get('/homePage',new HomePageHandler(homeTemp).getRequestHandler());
-app.get('/logout',new LogoutHandler().getRequestHandler());
+app.use(compositeHandler.getRequestHandler());
+app.get('/login',new LoginHandler(fs));
+app.post('/login', new PostLoginHandler(fs,registered_users));
+app.get('/homePage',new HomePageHandler(homeTemp));
+app.get('/logout',new LogoutHandler());
 
 module.exports = app;
