@@ -9,16 +9,20 @@ const LoadUserHandler= require("./handlers/load_user_Handler");
 const RedirectionHandler = require("./handlers/redirection_handler");
 const TodoListHandler = require("./handlers/todo_list_handler");
 const CompositeHandler = require("./handlers/composite_handler");
+const RenderTodoHandler = require("./handlers/todo_render_handler");
 const storeToDos = require('./utils.js').storeToDos;
 const app = require('./router.js').create();
-let registered_users = [{userName:'suyog',name:'suyog ukalkar',password:'a'},{userName:'shubham',name:'shubham jaybhaye',password:'shubham'}];
+let registered_users = [{userName:'suyog',name:'suyog ukalkar',password:'a'}];
+let todoTemp = fs.readFileSync("./templates/todoList", "utf8");
 const compositeHandler = new CompositeHandler()
   .addHandler(new LogRequestHandler(fs))
   .addHandler(new LoadUserHandler(registered_users))
   .addHandler(new RedirectionHandler())
   .addHandler(new StaticFileHandler(fs, "public"))
+  .addHandler(new RenderTodoHandler(todoTemp))
 
 let homeTemp = fs.readFileSync("./templates/home","utf8");
+
 app.use(compositeHandler);
 app.post("/deleteTodo", new TodoListHandler("delete"));
 app.get('/login',new LoginHandler(fs));

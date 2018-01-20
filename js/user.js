@@ -26,6 +26,10 @@ class User {
   addTodo(title,discription=''){
     this.todos.push(new ToDo(title,discription,++this.toDoId));
   }
+  addItem(todoId,text){
+    let todo = this.getTodo(todoId);  
+    todo.addItem(text);  
+  }
   removeTodo(id){
     let index=this.todos.findIndex((a)=>a.id==id);
     if(index==-1)return false;

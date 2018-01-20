@@ -6,6 +6,7 @@
     <script src="/lib/todoList.js" charset="utf-8"></script>
   </head>
   <body>
-    <button id="1" type="button" onclick="delete(this.id)" name="delete">delete</button>
+    <button id="1" type="button" onclick="deleteTodo(this.id)" name="delete">delete</button>
+    ${todoItem}
   </body>
 </html>
