@@ -3,6 +3,7 @@ const LoginHandler = require("./handlers/login_handler");
 const PostLoginHandler = require("./handlers/post_login_handler");
 const StaticFileHandler = require("./handlers/static_file_handler");
 const HomePageHandler = require("./handlers/home_page_handler");
+const LogoutHandler = require("./handlers/logout_handler");
 const timeStamp = require('./time.js').timeStamp;
 const storeToDos = require('./utils.js').storeToDos;
 const TODOApp = require('./todoApp.js');
@@ -39,11 +40,7 @@ const servePostAddTodoPage=(req,res)=>{
   console.log(req.body);
   res.redirect('/addTodo');
 }
-const serveLogOut=(req,res)=>{
-  res.setHeader('Set-Cookie',[`loginFailed=false,Expires=${new Date(1).toUTCString()}`,`sessionid=0,Expires=${new Date(1).toUTCString()}`]);
-  delete req.user.sessionid;
-  res.redirect('/login');
-}
+
 
 let homeTemp = fs.readFileSync("./templates/home","utf8");
 
@@ -56,6 +53,6 @@ app.use(new StaticFileHandler(fs,"public").getRequestHandler());
 app.get('/login',new LoginHandler(fs).getRequestHandler());
 app.post('/login', new PostLoginHandler(fs,registered_users).getRequestHandler());
 app.get('/homePage',new HomePageHandler(homeTemp).getRequestHandler());
-app.get('/logout',serveLogOut);
+app.get('/logout',new LogoutHandler().getRequestHandler());
 
 module.exports = app;

@@ -4,6 +4,7 @@ const Fs = require("./dummyFS");
 const LoginHandler = require("../handlers/login_handler");
 const PostLoginHandler = require("../handlers/post_login_handler");
 const HomePageHandler = require("../handlers/home_page_handler");
+const LogoutHandler = require("../handlers/logout_handler");
 let request = require('./requestSimulator.js');
 let app = require('../app.js');
 let th = require('./testHelper.js');
@@ -70,12 +71,23 @@ describe('app', () => {
     })
   });
   describe('GET /logout', () => {
-    it('if not logged in it redirects to /login', done => {
-      request(app, { method: 'GET', url: '/logout' }, res => {
+    let handler = new LogoutHandler().getRequestHandler();
+      it('if not logged in it redirects to /login', done => {
+      request(handler, { method: 'GET', url: '/logout' }, res => {
         th.should_be_redirected_to(res, '/login');
         done();
       })
-    })
+    });
+    it('should delete session id of logged in user and redirects to /login ', (done) => {
+      let handler = new LogoutHandler().getRequestHandler();
+      let user = { userName: "suyog", sessionid: 1000 };
+      let options = { method: 'GET', url: '/logout', user: user };
+      request(handler, options, res => {
+        th.should_be_redirected_to(res, '/login');
+        assert.notExists(options.user.sessionid);
+        done();
+      })
+    });
   })
   describe.skip('GET /addTodo', () => {
     it('redirects to / if not logged in', ()=> {
