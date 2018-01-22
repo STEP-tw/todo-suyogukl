@@ -14,12 +14,18 @@ let actions = {
     let todoToDelete = req.body.todo;
     let user = req.dummyUser||this.user;
     let deleted = user.removeTodo(todoToDelete);
-    console.log(deleted);
     if (req.user && !deleted) {
       res.write("false");
       res.end();
       return;
     }
+    res.redirect("/homePage");
+  },
+  "addTodo":function(req,res){
+    let title = req.body.title;
+    let description = req.body.description;
+    let user = req.dummyUser || this.user;
+    user.addTodo(title,description);
     res.redirect("/homePage");
   }
 }

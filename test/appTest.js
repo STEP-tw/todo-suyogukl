@@ -92,11 +92,15 @@ describe('app', () => {
       })
     });
   })
-  describe.skip('GET /addTodo', () => {
+  describe.only('GET /addTodo', () => {
     it('redirects to / if not logged in', () => {
-      request(app, { method: 'GET', url: '/addTodo' }, res => {
-        th.should_be_redirected_to(res, '/login');
-      })
+      let user = { userName: "suyog" };
+      let body = { title:'title',description:'description' };
+      let handler = new TodoListHandler("addTodo").getRequestHandler();
+      request(handler, { method: 'POST', url: '/addTodo', user: user, dummyUser: dummyUser, body: body }, res => {
+        assert.lengthOf(dummyUser.todos,4)
+        th.should_be_redirected_to(res, "/homePage");
+      });
     })
   })
   describe('GET /homePage', () => {

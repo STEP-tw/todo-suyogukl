@@ -25,6 +25,7 @@ let homeTemp = fs.readFileSync("./templates/home","utf8");
 
 app.use(compositeHandler);
 app.post("/deleteTodo", new TodoListHandler("delete"));
+app.post("/addTodo", new TodoListHandler("addTodo"));
 app.get('/login',new LoginHandler(fs));
 app.post('/login', new PostLoginHandler(fs,registered_users));
 app.get('/homePage',new HomePageHandler(homeTemp));
