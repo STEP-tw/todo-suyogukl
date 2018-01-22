@@ -15,6 +15,7 @@ class ToDo {
   }
   addItem(item){
     this.toDoItems.push(new Item(item,++this.itemId));
+    return this.toDoItems.slice(-1);
   }
   get items(){
     return this.toDoItems;

@@ -1,4 +1,5 @@
 const TodoActionHandler = require('./todo_action_handler');
+const toHtml = require("../toHtml/toHtml");
 class TodoListHandler extends TodoActionHandler {
   constructor(action) {
     super()
@@ -27,6 +28,14 @@ let actions = {
     let user = req.dummyUser || this.user;
     user.addTodo(title,description);
     res.redirect("/homePage");
+  },
+  "addItem":function(req,res){
+    let user = req.dummyUser || this.user;
+    let todoId = req.body.todo;
+    let text = req.body.text;
+    let addedItem = user.addItem(todoId,text);
+    res.write(toHtml.toInput(addedItem));
+    res.end();
   }
 }
 

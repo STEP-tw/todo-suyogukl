@@ -28,7 +28,7 @@ class User {
   }
   addItem(todoId,text){
     let todo = this.getTodo(todoId);  
-    todo.addItem(text);  
+    return todo.addItem(text)[0];
   }
   removeTodo(id){
     let index=this.todos.findIndex((a)=>a.id==+id);

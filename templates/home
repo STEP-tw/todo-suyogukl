@@ -6,12 +6,14 @@
     <link rel="stylesheet" href="/css/styleAllPage.css">
   </head>
   <body>
-    <a id="logout"href="/logout">Logout</a>
-    <h2>Welcome ${name}</h2>
-    <a href="/addTodo.html">Create TODO</a>
-    <h1 id="todoHeading">Your Todos</h2>
-    <ol id="todoContainer">
-      todoHolder
-    </ol>
+    <div class="main">
+      <a id="logout"href="/logout">Logout</a>
+      <h2>Welcome ${name}</h2>
+      <a href="/addTodo.html">Create TODO</a>
+      <h1 id="todoHeading">Your Todos</h2>
+        <ol id="todoContainer">
+          todoHolder
+        </ol>
+    </div>
   </body>
 </html>

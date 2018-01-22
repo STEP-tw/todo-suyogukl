@@ -4,3 +4,6 @@ exports.todos = (todos)=>{
 exports.toAnchor = (todo)=>{
   return `<li><a href="todo${todo.id}">${todo.title}</a></li>`;
 }
+exports.toInput = (todoItem)=>{
+  return `<input id=${todoItem.id} type="checkbox" name="" value="${todoItem.id}">${todoItem.text}<br>`;
+}

@@ -147,8 +147,8 @@ describe('app', () => {
   describe('todo_render_Handler', () => {
     it('should serve todo page by their id', () => {
       let user = { userName: "suyog" };
-      let template = "${todoItem}";
-      let contentToAssert = 'hi<br>hi<br>hi';
+      let template = "${todoItem} ${todo}";
+      let contentToAssert = 'hi<br>hi<br>hi todo=1';
       let handler = new RenderTodoHandler(template).getRequestHandler();
       request(handler, { method: 'GET', url: '/todo1', user: user, dummyUser: dummyUser }, res => {
         th.body_contains(res,contentToAssert);

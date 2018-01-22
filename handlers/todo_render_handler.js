@@ -1,4 +1,5 @@
 const TodoActionHandler = require('./todo_action_handler');
+const toHtml = require("../toHtml/toHtml");
 class RenderTodoHandler extends TodoActionHandler {
   constructor (todoTemplate) {
     super()
@@ -16,9 +17,11 @@ hasTodo(id){
     let id =url.split('todo')[1];
     if(this.isValid(url)&&this.hasTodo(id)){
       let items=this.user.getItemsOfTodo(+id);
-      let objectives = items.map(x=>x.text).join("<br>");
+      let title = this.user.getTodoTitle(+id)
+      let objectives = items.map(toHtml.toInput).join("");
       let html = this.template.replace("${todoItem}",objectives);
-      html = html.replace("${todo}",`todo=${id}`);
+      html = html.replace(/\${todo}/g,`todo=${id}`);
+      html = html.replace(/\${title}/,title);
       res.write(html);
       res.end();
     }

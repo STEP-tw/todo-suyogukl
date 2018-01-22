@@ -26,13 +26,7 @@ div.content{
   height: 400px;
   width: 600px;
 }
-div.comment{
-  width:1000px;
-  height:600px;
-  margin-left: 200px;
-  position: relative;
-  font-size: 10px;
-}
+
 
 #name{
   width: 100px;
@@ -63,18 +57,26 @@ div.book{
 }
 #logout{
   position: fixed;
-  margin-left: 1300px;
+  margin-left: 1000px;
 }
 #todoContainer{
-  margin-left: 700px;
+  margin-left: 500px;
   margin-top: 200px;
 }
 .deleteButton{
   position:fixed;
-  margin-left: 1300px;
+  margin-left: 1000px;
 }
 .todoItem{
   position:fixed;
-  margin-left: 700px;
+  margin-left: 550px;
   margin-top: 200px;
+}
+.home{
+  position:fixed;
+  margin-left: 1300px;
+}
+.addItems{
+  position: fixed;
+  /* margin-left: -200px; */
 }
