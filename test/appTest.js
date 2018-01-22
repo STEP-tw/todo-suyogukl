@@ -1,6 +1,6 @@
 let chai = require('chai');
 let dummyUser = require("../dummyUser");
-dummyUser["test"]=true;
+dummyUser["test"] = true;
 let assert = chai.assert;
 const Fs = require("./dummyFS");
 const LoginHandler = require("../handlers/login_handler");
@@ -9,6 +9,7 @@ const HomePageHandler = require("../handlers/home_page_handler");
 const RedirectionHandler = require("../handlers/redirection_handler");
 const TodoListHandler = require("../handlers/todo_list_handler");
 const LogoutHandler = require("../handlers/logout_handler");
+const RenderTodoHandler = require("../handlers/todo_render_handler");
 let request = require('./requestSimulator.js');
 let app = require('../app.js');
 let th = require('./testHelper.js');
@@ -96,10 +97,10 @@ describe('app', () => {
   describe('GET /addTodo', () => {
     it('redirects to / if not logged in', () => {
       let user = { userName: "suyog" };
-      let body = { title:'title',description:'description' };
+      let body = { title: 'title', description: 'description' };
       let handler = new TodoListHandler("addTodo").getRequestHandler();
       request(handler, { method: 'POST', url: '/addTodo', user: user, dummyUser: dummyUser, body: body }, res => {
-        assert.lengthOf(dummyUser.todos,4)
+        assert.lengthOf(dummyUser.todos, 4)
         th.should_be_redirected_to(res, "/homePage");
       });
     })
@@ -120,27 +121,38 @@ describe('app', () => {
     describe('/deleteTodo', () => {
       it('should delete todo from list', () => {
         let user = { userName: "suyog" };
-        let body = { todo:1};
+        let body = { todo: 1 };
         let handler = new TodoListHandler("delete").getRequestHandler();
-        request(handler, { method: 'POST', url: '/deleteTodo', user: user, dummyUser: dummyUser,body:body }, res => {
-          th.should_be_redirected_to(res,"/homePage");
+        request(handler, { method: 'POST', url: '/deleteTodo', user: user, dummyUser: dummyUser, body: body }, res => {
+          th.should_be_redirected_to(res, "/homePage");
         });
       });
     });
   })
   describe('Redirection Handler', () => {
-      it('should redirect to/login if not logged in ', () => {
-        let handler = new RedirectionHandler().getRequestHandler();
-        request(handler, { method: 'POST', url: '/addTodo'}, res =>{
-          th.should_be_redirected_to(res, "/login");
-        });
-      })
+    it('should redirect to/login if not logged in ', () => {
+      let handler = new RedirectionHandler().getRequestHandler();
+      request(handler, { method: 'POST', url: '/addTodo' }, res => {
+        th.should_be_redirected_to(res, "/login");
+      });
     })
+  })
   it.skip('should not redirect to /login if there is user ', () => {
     let handler = new RedirectionHandler().getRequestHandler();
-    let user = { userName: "suyog" };    
-    request(handler, { method: 'POST', url: '/addTodo' , user:user }, res => {
+    let user = { userName: "suyog" };
+    request(handler, { method: 'POST', url: '/addTodo', user: user }, res => {
       th.should_be_redirected_to(res, "/login");
+    });
+  })
+  describe('todo_render_Handler', () => {
+    it('should serve todo page by their id', () => {
+      let user = { userName: "suyog" };
+      let template = "${todoItem}";
+      let contentToAssert = 'hi<br>hi<br>hi';
+      let handler = new RenderTodoHandler(template).getRequestHandler();
+      request(handler, { method: 'GET', url: '/todo1', user: user, dummyUser: dummyUser }, res => {
+        th.body_contains(res,contentToAssert);
+      });
     });
   })
 })
