@@ -10,7 +10,6 @@ const RedirectionHandler = require("./handlers/redirection_handler");
 const TodoListHandler = require("./handlers/todo_list_handler");
 const CompositeHandler = require("./handlers/composite_handler");
 const RenderTodoHandler = require("./handlers/todo_render_handler");
-const storeToDos = require('./utils.js').storeToDos;
 const app = require('./router.js').create();
 let registered_users = [{userName:'suyog',name:'suyog ukalkar',password:'a'}];
 let todoTemp = fs.readFileSync("./templates/todoList", "utf8");

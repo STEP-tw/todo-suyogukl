@@ -92,7 +92,7 @@ describe('app', () => {
       })
     });
   })
-  describe.only('GET /addTodo', () => {
+  describe('GET /addTodo', () => {
     it('redirects to / if not logged in', () => {
       let user = { userName: "suyog" };
       let body = { title:'title',description:'description' };
