@@ -8,8 +8,11 @@ let request = function(app,options,onComplete){
   req.headers = options.headers||{};
   req.cookies=options.cookies||{};
   req.body=options.body||{};
-  req.user=options.user||{};
+  req.user=options.user;
   req.dummyUser=options.dummyUser||{};
+  req.urlIsOneOf = function(urls){
+    return urls.includes(this.url);
+  }
   let res={
     end:()=>{
       res.finished = true;

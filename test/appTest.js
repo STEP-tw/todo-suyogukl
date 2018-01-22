@@ -6,6 +6,7 @@ const Fs = require("./dummyFS");
 const LoginHandler = require("../handlers/login_handler");
 const PostLoginHandler = require("../handlers/post_login_handler");
 const HomePageHandler = require("../handlers/home_page_handler");
+const RedirectionHandler = require("../handlers/redirection_handler");
 const TodoListHandler = require("../handlers/todo_list_handler");
 const LogoutHandler = require("../handlers/logout_handler");
 let request = require('./requestSimulator.js');
@@ -125,6 +126,21 @@ describe('app', () => {
           th.should_be_redirected_to(res,"/homePage");
         });
       });
+    });
+  })
+  describe('Redirection Handler', () => {
+      it('should redirect to/login if not logged in ', () => {
+        let handler = new RedirectionHandler().getRequestHandler();
+        request(handler, { method: 'POST', url: '/addTodo'}, res =>{
+          th.should_be_redirected_to(res, "/login");
+        });
+      })
+    })
+  it.skip('should not redirect to /login if there is user ', () => {
+    let handler = new RedirectionHandler().getRequestHandler();
+    let user = { userName: "suyog" };    
+    request(handler, { method: 'POST', url: '/addTodo' , user:user }, res => {
+      th.should_be_redirected_to(res, "/login");
     });
   })
 })
