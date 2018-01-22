@@ -1,26 +1,26 @@
 class ToDoItem {
   constructor (text,id) {
-    this.text = text;
-    this.status=false;
-    this.id=id;
+    this._text = text;
+    this._status=false;
+    this._id=id;
   }
-  get itsId(){
-    return this.id;
+  get id(){
+    return this._id;
   }
-  get itsText(){
-    return this.text;
+  get text(){
+    return this._text;
   }
-  get itsStatus(){
-    return this.status;
+  get status(){
+    return this._status;
   }
   updateText(textToUpdate){
-    return this.text=textToUpdate;
+    return this._text=textToUpdate;
   }
   markDone(){
-    this.status = true;
+    this._status = true;
   }
   markNotDone(){
-    this.status=false;
+    this._status=false;
   }
 }
 

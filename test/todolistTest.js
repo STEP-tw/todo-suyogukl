@@ -20,7 +20,7 @@ describe('Tests for todolist',()=>{
   describe('#addItem()',()=>{
     it('should add item to todo',()=>{
       todo.addItem('game');
-      assert.deepEqual(todo.toDoItems[0],{ text: 'game', status: false, id: 1 })
+      assert.deepEqual(todo.toDoItems[0],{ _text: 'game', _status: false, _id: 1 })
     })
   })
   describe('#items',()=>{
@@ -33,14 +33,14 @@ describe('Tests for todolist',()=>{
       assert.deepEqual(todo.items,
         [
           {
-            "id": 1,
-            "status": false,
-            "text": "game"
+            "_id": 1,
+            "_status": false,
+            "_text": "game"
           },
           {
-            "id": 2,
-            "status": false,
-            "text": "sport"
+            "_id": 2,
+            "_status": false,
+            "_text": "sport"
           }
         ]
       );
@@ -70,11 +70,11 @@ describe('Tests for todolist',()=>{
       assert.equal(todo.getItemText('1'),'cricket')
     })
   })
-  describe('#getSpecificItem',()=>{
+  describe('#getItem',()=>{
     it('should return specific item if given text matches to any item`s text',()=>{
       todo.addItem('game','1');
       todo.addItem('sport','2');
-      assert.deepEqual(todo.getSpecificItem('1'),{ text: 'game', status: false, id: 1 })
+      assert.deepEqual(todo.getItem('1'),{ _text: 'game', _status: false, _id: 1 })
     })
   })
   describe('#getItemStatus',()=>{
@@ -99,14 +99,14 @@ describe('Tests for todolist',()=>{
       assert.deepEqual(todo.items,
         [
           {
-            "id": 1,
-            "status": false,
-            "text": "cricket"
+            "_id": 1,
+            "_status": false,
+            "_text": "cricket"
           },
           {
-            "id": 2,
-            "status": false,
-            "text": "football"
+            "_id": 2,
+            "_status": false,
+            "_text": "football"
           }
         ]
       );

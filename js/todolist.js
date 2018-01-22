@@ -27,26 +27,26 @@ class ToDo {
     return this.todoDescription;
   }
   updateItemText(id,textToUpdate){
-    return this.getSpecificItem(id).updateText(textToUpdate);
+    return this.getItem(id).updateText(textToUpdate);
   }
-  getSpecificItem(id){
-    return this.toDoItems.find((a)=>a.itsId==id);
+  getItem(id){
+    return this.toDoItems.find((a)=>a.id==id);
   }
   getItemText(id){
-    return this.getSpecificItem(id).itsText;
+    return this.getItem(id).text;
   }
   removeItem(id){
-    let index=this.toDoItems.findIndex((a)=>a.itsId==id);
+    let index=this.toDoItems.findIndex((a)=>a.id==id);
     this.toDoItems.splice(index,1);
   }
   getItemStatus(itemId){
-    return this.getSpecificItem(itemId).itsStatus;
+    return this.getItem(itemId).status;
   }
   changeStatusAsDone(itemId){
-    this.getSpecificItem(itemId).markDone();
+    this.getItem(itemId).markDone();
   }
   changeStatusAsNotDone(itemId){
-    this.getSpecificItem(itemId).markNotDone();
+    this.getItem(itemId).markNotDone();
   }
 }
 module.exports = ToDo;

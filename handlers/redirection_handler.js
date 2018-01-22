@@ -2,7 +2,7 @@ class RedirectionHandler {
   constructor() {
   }
   inValid(req){
-    let regex = new RegExp(/^\/todo[1-9]+$|^\/item[1-9]+$/);
+    let regex = new RegExp(/^\/todo_[1-9]+$|^\/item_[1-9]+$/);
     return regex.test(req.url)&& !req.user;
   }
   execute(req, res) {
