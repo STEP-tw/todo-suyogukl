@@ -31,7 +31,7 @@ class User {
     todo.addItem(text);  
   }
   removeTodo(id){
-    let index=this.todos.findIndex((a)=>a.id==id);
+    let index=this.todos.findIndex((a)=>a.id==+id);
     if(index==-1)return false;
     this.todos.splice(index,1);
     return true;

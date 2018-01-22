@@ -1,5 +1,6 @@
 let chai = require('chai');
 let dummyUser = require("../dummyUser");
+dummyUser["test"]=true;
 let assert = chai.assert;
 const Fs = require("./dummyFS");
 const LoginHandler = require("../handlers/login_handler");
@@ -111,14 +112,13 @@ describe('app', () => {
     });
   });
   describe('TODOACTIONS', () => {
-    describe('/deletetodo', () => {
-      it.skip('should delete todo from list', () => {
+    describe('/deleteTodo', () => {
+      it('should delete todo from list', () => {
         let user = { userName: "suyog" };
-        let body = { itemId:1};
+        let body = { todo:1};
         let handler = new TodoListHandler("delete").getRequestHandler();
-        request(handler, { method: 'POST', url: '/deleteTodo', user: user, dummyUser: dummyUser }, res => {
-          th.status_is_ok(res);
-          assert.isOk(JSON.parse(res.body));
+        request(handler, { method: 'POST', url: '/deleteTodo', user: user, dummyUser: dummyUser,body:body }, res => {
+          th.should_be_redirected_to(res,"/homePage");
         });
       });
     });

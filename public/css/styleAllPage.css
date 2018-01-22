@@ -69,3 +69,12 @@ div.book{
   margin-left: 700px;
   margin-top: 200px;
 }
+.deleteButton{
+  position:fixed;
+  margin-left: 1300px;
+}
+.todoItem{
+  position:fixed;
+  margin-left: 700px;
+  margin-top: 200px;
+}

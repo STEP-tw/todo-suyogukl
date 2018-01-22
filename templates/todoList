@@ -4,9 +4,12 @@
     <meta charset="utf-8">
     <title></title>
     <script src="/lib/todoList.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="/css/styleAllPage.css">
   </head>
   <body>
-    <button id="1" type="button" onclick="deleteTodo(this.id)" name="delete">delete</button>
-    ${todoItem}
+    <button class='deleteButton' id="${todo}" type="button" onclick="deleteTodo(this.id)" name="delete">deleteTodo</button>
+    <div class="todoItem">
+      ${todoItem}
+    </div>
   </body>
 </html>

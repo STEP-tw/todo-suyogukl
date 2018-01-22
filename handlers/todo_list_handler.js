@@ -11,11 +11,14 @@ class TodoListHandler extends TodoActionHandler {
 }
 let actions = {
   "delete": function (req, res) {
-    let itemToDelete = req.body.itemId;
-    if (!this.user.removeTodo(itemToDelete)) {
+    let todoToDelete = req.body.todo;
+    let user = req.dummyUser||this.user;
+    let deleted = user.removeTodo(todoToDelete);
+    console.log(deleted);
+    if (req.user && !deleted) {
       res.write("false");
       res.end();
-      return
+      return;
     }
     res.redirect("/homePage");
   }
