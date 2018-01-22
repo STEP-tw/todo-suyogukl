@@ -14,4 +14,10 @@ describe('StaticFileHandler ', () => {
   it('should give content type of filepath', () => {
     assert.equal(handler.getContentType("./abc.css"),"text/css");
   });
+  it('should set url to /index.html when only / is given', () => {
+    request(handler.getRequestHandler(), { url: "/", method: "GET" }, (res) => {
+      th.status_is_ok(res);
+      th.body_contains(res, "this is dummy");
+    })
+  });
 });

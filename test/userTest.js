@@ -41,6 +41,10 @@ describe('Tests for User', () => {
       suyog.removeTodo(2);
       assert.notInclude(suyog.getAllTodoTitles(),"good");
     })
+    it('should return false if given todo is not there', () => {
+      suyog.addTodo('title', 'description');
+      assert.isNotOk(suyog.removeTodo(45));
+    });
   })
   describe('#getAllTitles()', () => {
     it('should return all titles of user todo`s', () => {

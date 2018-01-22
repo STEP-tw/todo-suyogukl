@@ -140,10 +140,9 @@ describe('app', () => {
         });
       })
     })
-    it.skip('should not redirect to /login if there is user ', () => {
+    it('should redirect to /login if not logged in when url is unauthorised ', () => {
       let handler = new RedirectionHandler().getRequestHandler();
-      let user = { userName: "suyog" };
-      request(handler, { method: 'POST', url: '/addTodo', user: user }, res => {
+      request(handler, { method: 'POST', url: '/todo1'}, res => {
         th.should_be_redirected_to(res, "/login");
       });
     })
