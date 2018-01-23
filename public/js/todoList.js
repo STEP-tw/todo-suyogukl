@@ -24,3 +24,28 @@ const addItem = function(id) {
     div.innerHTML += this.responseText;
   })
 }
+
+const getEditTodoForm = function(id){
+  return `
+    Title:<input id="${id}" type="text" name="title" value="">
+    Description<input id="${id}" type="text" name="description" value="">
+    <button type="button" name="editTodo">edit todo</button>`
+}
+const showEditForm=function(id){
+  let todoId = id.split("todo=")[1];
+  let div = document.getElementsByClassName('editForm')[0];
+  let editForm = getEditTodoForm(todoId);
+  div.innerHTML = editForm;
+  document.getElementsByName("editTodo")[0].onclick = ()=>{
+    editTodo(todoId);
+  }
+}
+
+const editTodo = function(todoId){
+  let title = document.getElementsByName("title")[0].value;
+  let description =document.getElementsByName("description")[0].value;
+  let data = `id=${todoId}&title=${title}&description=${description}`;
+  sendAJAXReq("/editTodo","POST",data,function(){
+    window.location.href = this.responseURL;
+  })
+}

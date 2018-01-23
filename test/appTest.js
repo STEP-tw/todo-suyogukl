@@ -131,6 +131,14 @@ describe('todo_action', () => {
         th.should_be_redirected_to(res, "/homePage");
       });
     });
+    it('should responds false for /deleteTodo req for non-existed todo', () => {
+      let user = { userName: "suyog" };
+      let body = { todo: 5 };
+      let handler = new TodoListHandler("delete").getRequestHandler();
+      request(handler, { method: 'POST', url: '/deleteTodo', user: user, dummyUser: mockedUser, body: body }, res => {
+        th.body_contains(res,"false");
+      });
+    });
   });
   describe('redirection_handler', () => {
     it('should redirect to/login if not logged in ', () => {
@@ -164,6 +172,18 @@ describe('todo_action', () => {
       let handler = new TodoListHandler("addItem").getRequestHandler();
       request(handler, { method: 'POST', url: '/addItem', user: user, dummyUser: mockedUser, body: body }, res => {
         th.body_contains(res, "do something");
+        assert.include(dummyUser.getItemsText('2'),"do something");
+      });
+    });
+  });
+  describe('POST /editTodo', () => {
+    it('should edit title and description of given todo', () => {
+      let user = { userName: "suyog" };
+      let body = { id: 2, title: "outdoor games",description:'playing cricket' };
+      let handler = new TodoListHandler("editTodo").getRequestHandler();
+      request(handler, { method: 'POST', url: '/editTodo', user: user, dummyUser: mockedUser, body: body }, res => {
+        assert.equal(dummyUser.getTodoTitle('2'),"outdoor games");
+        th.should_be_redirected_to(res,'/homePage');
       });
     });
   });

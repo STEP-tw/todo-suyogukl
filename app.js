@@ -26,6 +26,7 @@ app.use(compositeHandler);
 app.post("/deleteTodo", new TodoListHandler("delete"));
 app.post("/addTodo", new TodoListHandler("addTodo"));
 app.post("/addItem", new TodoListHandler("addItem"));
+app.post("/editTodo", new TodoListHandler("editTodo"));
 app.get('/login',new LoginHandler(fs));
 app.post('/login', new PostLoginHandler(fs,registered_users));
 app.get('/homePage',new HomePageHandler(homeTemp));

@@ -36,6 +36,14 @@ let actions = {
     let addedItem = user.addItem(todoId,text);
     res.write(toHtml.toInput(addedItem));
     res.end();
+  },
+  'editTodo':function(req,res){
+    let user = req.dummyUser || this.user;
+    let title=req.body.title;
+    let description=req.body.description;
+    let todoId=req.body.id;
+    let addedItem = user.editTodo(todoId,title,description);
+    res.redirect("/homePage");
   }
 }
 
