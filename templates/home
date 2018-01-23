@@ -8,9 +8,9 @@
   <body>
     <div class="main">
       <a id="logout"href="/logout">Logout</a>
-      <h2>Welcome ${name}</h2>
-      <a href="/addTodo.html">Create TODO</a>
-      <h1 id="todoHeading">Your Todos</h2>
+      <h2 id="user">Welcome ${name}</h2>
+      <a id="addTodo" href="/addTodo.html">Create Todo</a>
+      <h2 id="todoHeading">Your Todos</h2>
         <ol id="todoContainer">
           todoHolder
         </ol>

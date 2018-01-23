@@ -6,14 +6,20 @@
     <link rel="stylesheet" href="css/styleAllPage.css">
   </head>
   <body>
-  <h2 align='center'><a href="index.html"><<</a>Welcome to login page</h2><hr/>
-  <b>message</b>
-  <form href='/addTodo'method='POST'>
-    <br><br><br>
-    <b>Name:</b> <input type="text" name="userName" value=''><br><br>
-    <b>Password:</b> <input type="password" name="password" value=''></input>
-    <br><br>
-    <input type="submit" value="Submit"><hr>
-  </form>
+    <div class="main">    
+      <h1 align='center'><a href="index.html"><<</a>ToDo App</h1><hr/>
+      <b>message</b>
+      <form align="center" id="loginForm" href='/addTodo'method='POST'>
+        <h2>Login</h2>
+        <b>Username</b>
+        <br>
+        <input class="loginDetails" type="text" name="userName" value=''><br><br>
+        <b>Password</b>
+        <br>
+        <input class="loginDetails" type="password" name="password" value=''></input>
+        <br><br>
+        <input type="submit" value="Login">
+      </form>
+    </div>
   </body>
 </html>

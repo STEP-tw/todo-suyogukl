@@ -3,25 +3,25 @@
   <head>
     <meta charset="utf-8">
     <title>Add ToDo</title>
-    <script type="text/javascript" src='lib/createItem.js'>
-
-    </script>
+    <link rel="stylesheet" href="css/styleAllPage.css">
   </head>
   <body >
-    <div >
+    <div class="main" >
       <div >
-        <h1 align='center'>TO-DO App</h1><hr />
+        <h1 align='center'> <a id="" href="/homePage">
+          <<<</a> Add a todo</h1><hr />
         <h3 align='left' id='greetUser'></h3>
       </div>
-      <form action="/addTodo" method="POST">
-        <b>Title:</b><input id="title"type="text" name="title" value="" contentEditable = "true" required/><br><br>
-        <b>Description:</b><textarea type="text" id="desc"name="discription" value="" contentEditable = "true" required></textarea>
-        <br><br /><br /><input type="submit" value="Submit"><hr/>
-        <b>To-Do items:</b><br>
-      </form><hr />
-      <button type="button" name="itemCreator" onclick='createItem()'>Create new item</button>
-      <br><br><a href="/logout" align='right'>LogOut</a>
-      <a href="/homePage">Home Page</a>
+      <a id="logout" href="/logout">Logout</a>
+      <form id="addTodoForm" action="/addTodo" method="POST">
+        <b>Title</b>
+        <br>
+        <input style="font-size:15px;width:330px;"type="text" name="title" value="" required/><br><br>
+        <b>Description</b><br>
+        <br>
+        <textarea style="font-size:15px;" type="text" rows="5" cols="40" id="desc"name="discription" value="" required></textarea>
+        <br><br /><br /><input type="submit" value="Add a todo">
+      </form>
     </div>
   </body>
 </html>
