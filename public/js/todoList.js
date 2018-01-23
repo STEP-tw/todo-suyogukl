@@ -34,6 +34,8 @@ const getEditTodoForm = function(id){
 const showEditForm=function(id){
   let todoId = id.split("todo=")[1];
   let div = document.getElementsByClassName('editForm')[0];
+  // if(div.innerHTML&&div.style.visibility = "hidden")
+  // {}
   let editForm = getEditTodoForm(todoId);
   div.innerHTML = editForm;
   document.getElementsByName("editTodo")[0].onclick = ()=>{
@@ -46,6 +48,8 @@ const editTodo = function(todoId){
   let description =document.getElementsByName("description")[0].value;
   let data = `id=${todoId}&title=${title}&description=${description}`;
   sendAJAXReq("/editTodo","POST",data,function(){
-    window.location.href = this.responseURL;
+    document.getElementById("titleHolder").innerText = title;
+    let div = document.getElementsByClassName('editForm')[0];
+    div.style.visibility = "hidden"
   })
 }

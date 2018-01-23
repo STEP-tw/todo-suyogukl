@@ -8,16 +8,20 @@
   </head>
   <body>
     <div class="main">
-  <a id="logout"href="/logout">Logout</a>
-      <button class='deleteButton' id="${todo}" type="button" onclick="deleteTodo(this.id)" name="delete">deleteTodo</button>
-      <button type="button" id="${todo}" name="" onclick='showEditForm(this.id)'>editTodo</button>
-      <h2 align="center"> <a id=""href="/homePage"><<<</a> ${title}</h2>
-      <div class="todoItem">
-        ${todoItem}
-      </div>
-      <div class="addItems">
-        TodoItem :<input style="width:100px;height:25px;" type="text" name="addItem" value="">
-        <button type="button" class="addButton" id="${todo}" onclick="addItem(this.id)" name="button">addItem</button>
+      <div class="itemContent">
+        <a id="logout"href="/logout">Logout</a>
+        <button class='deleteButton' id="${todo}" type="button" onclick="deleteTodo(this.id)" name="delete">deleteTodo</button>
+        <button type="button" class='editButton' id="${todo}" name="" onclick='showEditForm(this.id)'>editTodo</button>
+        <div class="titleHolder">
+          <h2 align="center"> <a href="/homePage"><<<</a><p id="titleHolder">${title}</p> </h2>
+        </div>
+        <div class="todoItem">
+          ${todoItem}
+        </div>
+        <div class="addItems">
+          TodoItem :<input style="width:100px;height:25px;" type="text" name="addItem" value="">
+          <button type="button" class="addButton" id="${todo}" onclick="addItem(this.id)" name="button">addItem</button>
+        </div>
       </div>
       <div class="editForm">
       </div>

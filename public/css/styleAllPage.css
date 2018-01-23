@@ -1,21 +1,24 @@
-div.main{
-  width:1200px;
-  height:850px;
+div.main {
+  width: 1200px;
+  height: 850px;
   margin: auto;
 }
-div.heading{
-  width:1200px;
+
+div.heading {
+  width: 1200px;
   height: 150px;
 }
-div.pageContent{
-  width:1200px;
+
+div.pageContent {
+  width: 1200px;
   height: 500px;
 }
 
-#todoHeading{
+#todoHeading {
   text-align: center;
 }
-div.content{
+
+div.content {
   height: 600px;
   width: 300px;
   padding-top: 100px;
@@ -23,41 +26,42 @@ div.content{
   float: left;
 }
 
-#name{
+#name {
   width: 100px;
   height: 40px;
   list-style-type: disc;
-  position:static;
+  position: static;
 }
 
-#user{
+#user {
   position: fixed;
   margin-top: 4%;
   margin-left: 1200px;
 }
 
-#addTodo{
+#addTodo {
   position: fixed;
   font-size: 25px;
   margin-top: 50px;
 }
 
-h1{
+h1 {
   color: orange;
 }
 
-#logout{
+#logout {
   position: fixed;
   font-size: 20px;
   margin-left: 1300px;
 }
 
-#todoContainer{
+#todoContainer {
   margin-left: 500px;
   margin-top: 200px;
 }
-.deleteButton{
-  position:fixed;
+
+.deleteButton {
+  position: fixed;
   margin-left: 700px;
   margin-top: 5px;
   height: 3%;
@@ -65,8 +69,8 @@ h1{
   font-size: 15px;
 }
 
-.addButton{
-  position:fixed;
+.addButton {
+  position: fixed;
   margin-left: 200px;
   margin-top: -25px;
   height: 3%;
@@ -74,31 +78,49 @@ h1{
   font-size: 15px;
 }
 
-.todoItem{
-  position:fixed;
+.todoItem {
+  position: fixed;
   margin-left: 550px;
   margin-top: 200px;
 }
-.home{
-  position:fixed;
+
+.home {
+  position: fixed;
   margin-left: 400px;
   margin-top: 40px;
 }
 
-#loginForm{
+#loginForm {
   margin-top: 200px;
 }
-.loginDetails{
+
+.loginDetails {
   font-size: 15px;
   width: 200px;
   height: 20px;
 }
-#addTodoForm{
+
+#addTodoForm {
   margin-top: 200px;
   margin-left: 35%;
 }
-.addItems{
+
+.addItems {
   position: fixed;
   margin-left: 30%;
   margin-top: 5%;
+}
+
+.editButton {
+  position: fixed;
+  margin-left: 800px;
+  margin-top: 5px;
+  height: 3%;
+  width: 6%;
+  font-size: 15px;
+}
+
+.editForm {
+  margin-left: 30%;
+  margin-top: 2%;
 }
