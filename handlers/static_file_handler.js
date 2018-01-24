@@ -29,7 +29,7 @@ class StaticFileHandler {
       return
     }
     res.setHeader("Content-Type", contentType);
-    res.write(content);
+    res.write(content)
     res.end();
   }
   getRequestHandler(){

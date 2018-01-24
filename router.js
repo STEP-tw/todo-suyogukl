@@ -47,6 +47,7 @@ const use = function(handler){
 let urlIsOneOf = function(urls){
   return urls.includes(this.url);
 }
+exports.urlIsOneOf = urlIsOneOf;
 const executeMiddleware=function(req,res){
   let content="";
   req.on('data',data=>content+=data.toString())

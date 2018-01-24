@@ -29,6 +29,10 @@ let request = function(app,options,onComplete){
       res_headers.location=path;
       res.statusCode=302;
       res.end();
+    },
+    send:(content)=>{
+      res.write(content)
+      res.end();
     }
   };
   app(req,res);

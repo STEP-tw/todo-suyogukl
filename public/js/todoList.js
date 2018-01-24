@@ -6,6 +6,7 @@ const sendAJAXReq = function(url, method, data, callBack) {
       callBack.call(this);
     }
   };
+  xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
   xhr.send(data);
 }
 
