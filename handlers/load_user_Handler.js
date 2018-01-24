@@ -1,10 +1,9 @@
 class LoadUserHandler {
-  constructor(allowedUsers) {
-    this.registered_users = allowedUsers;
+  constructor() {
   }
   execute(req, res) {
     let sessionid = req.cookies.sessionid;
-    let user = this.registered_users.find(u => u.sessionid == sessionid);
+    let user = req.app.registered_users.find(u => u.sessionid == sessionid);
     if (sessionid && user) {
       req.user = user;
     }

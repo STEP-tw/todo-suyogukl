@@ -3,27 +3,31 @@ const toHtml = require("../toHtml/toHtml");
 class RenderTodoHandler extends TodoActionHandler {
   constructor(todoTemplate) {
     super()
-    this.template = todoTemplate;
   }
   isValid(url) {
     let regex = new RegExp(/^\/todo_[1-9]+$/);
     return regex.test(url);
   }
-  hasTodo(id) {
-    return this.user.getTodo(id);
+  hasTodo(id,user) {
+    return user.getTodo(id);
   }
-  execute(req, res) {
+  execute(req, res,next) {
     let url = req.url;
     let id = url.split('todo_')[1];
-    if (this.isValid(url) && this.hasTodo(id)) {
-      let items = this.user.getItemsOfTodo(+id);
-      let title = this.user.getTodoTitle(+id)
+    let user  = req.app.user;
+    if (this.isValid(url)&&this.hasTodo(id,user)) {
+      let items = user.getItemsOfTodo(+id);
+      let title = user.getTodoTitle(+id)
       let objectives = items.map(toHtml.toInput).join("");
-      let html = this.template.replace("${todoItem}", objectives);
+      let temp = req.app.temp["todoTemplate"];
+      let html = temp.replace("${todoItem}", objectives);
       html = html.replace(/\${todo}/g, `todo=${id}`);
       html = html.replace(/\${title}/, title);
       res.write(html);
       res.end();
+    }
+    else{
+      next()
     }
   }
 }

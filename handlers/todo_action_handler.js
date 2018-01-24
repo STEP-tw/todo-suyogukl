@@ -1,7 +1,5 @@
-const dummyUser = require('../dummyUser');
 class TodoHandler {
   constructor () {
-    this.user=dummyUser;
   }
   execute(req,res){
     res.end();

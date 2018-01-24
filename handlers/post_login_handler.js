@@ -1,11 +1,9 @@
 class PostLoginHandler {
-  constructor(fs, allowedUsers) {
-    this.fs = fs;
-    this.registered_users = allowedUsers;
+  constructor() {
   }
   execute(req, res) {
     let sessionid = new Date().getTime();
-    let user = this.registered_users.find(u => {
+    let user = req.app.registered_users.find(u => {
       return u.userName == req.body.userName;
     });
     if (user) {

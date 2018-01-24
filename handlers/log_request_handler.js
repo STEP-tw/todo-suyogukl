@@ -1,8 +1,7 @@
 const timeStamp = require('../time.js').timeStamp;
 let toS = o => JSON.stringify(o, null, 2);
 class LogRequestHandler {
-  constructor (fs) {
-    this.fs=fs;
+  constructor () {
   }
   execute(req,res){
     let text = ['------------------------------',
@@ -12,7 +11,7 @@ class LogRequestHandler {
       `COOKIES=> ${toS(req.cookies)}`,
       `BODY=> ${toS(req.body)}`, ''].join('\n');
       console.log(`${req.method} ${req.url}`);
-    this.fs.appendFile('./request.log', text, () => { });
+    req.app.fs.appendFile('./request.log', text, () => { });
   }
   getRequestHandler(){
     return this.execute.bind(this);

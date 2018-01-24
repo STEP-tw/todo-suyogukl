@@ -1,9 +1,8 @@
 class LoginHandler {
-  constructor(fs) {
-    this.fs = fs;
+  constructor() {
   }
   execute(req, res) {
-    let loginPage = this.fs.readFileSync(`./public/login.html`, 'utf8');
+    let loginPage = req.app.fs.readFileSync(`./public/login.html`, 'utf8');
     loginPage = loginPage.replace('message', req.cookies.message || '');
     res.statusCode=200;
     res.setHeader('Content-type', 'text/html');

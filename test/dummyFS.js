@@ -1,13 +1,24 @@
-class Fs {
-  constructor (content) {
-    this.content = content;
+class MockFileSystem {
+  constructor() {
+    this.files = {}
   }
-  readFileSync(path){
-    return this.content;
+  addFile(file, content) {
+    this.files[file] = content;
   }
-  existsSync(path){
-    return true;
+  existsSync(file) {
+    return Object.keys(this.files).includes(file)
+  }
+  readFileSync(file, encoding) {
+    if (!this.existsSync(file))
+      throw new Error("file not found");
+    return this.files[file];
+  }
+  appendFile(file, content) {
+    this.files[file] += content;
+  }
+  writeFileSync(file, content) {
+    this.files[file] = content;
   }
 }
 
-module.exports = Fs;
+module.exports = MockFileSystem;
