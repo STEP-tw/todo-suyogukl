@@ -5,7 +5,6 @@ const SesssionManager = require("../js/sessionManager");
 const FS = require("./dummyFS");
 const request = require('supertest');
 let app = require('../app.js');
-let th = require('./testHelper.js');
 let registered_users = [{ userName: 'suyog', name: 'suyog ukalkar', password: 'a' }];
 let mockedFs = new FS();
 app.fs = mockedFs;
