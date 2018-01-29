@@ -1,9 +1,11 @@
 let fs = require('fs');
 let dummyUser = require("./dummyUser");
 const http = require('http');
+const SessionManager = require("./js/sessionManager");
 const app =require('./app.js')
 app.user = dummyUser;
 app.fs = fs;
+app.sessionManager = new SessionManager();
 
 let homeTemp = fs.readFileSync("./templates/home", "utf8");
 let todoTemp = fs.readFileSync("./templates/todoList", "utf8");
