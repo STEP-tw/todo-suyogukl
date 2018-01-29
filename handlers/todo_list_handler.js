@@ -7,7 +7,7 @@ class TodoListHandler extends TodoActionHandler {
   }
   execute(req, res) {
     let action = actions[this.action];
-    action.call(this, req, res);
+    if (req.user) action.call(this, req, res);
   }
 }
 let actions = {
@@ -22,27 +22,27 @@ let actions = {
     }
     res.redirect("/homePage");
   },
-  "addTodo":function(req,res){
+  "addTodo": function (req, res) {
     let title = req.body.title;
     let description = req.body.description;
     let user = req.app.user;
-    user.addTodo(title,description);
+    user.addTodo(title, description);
     res.redirect("/homePage");
   },
-  "addItem":function(req,res){
+  "addItem": function (req, res) {
     let user = req.app.user;
     let todoId = req.body.todo;
     let text = req.body.text;
-    let addedItem = user.addItem(todoId,text);
+    let addedItem = user.addItem(todoId, text);
     res.write(toHtml.toInput(addedItem));
     res.end();
   },
-  'editTodo':function(req,res){
+  'editTodo': function (req, res) {
     let user = req.app.user;
-    let title=req.body.title;
-    let description=req.body.description;
-    let todoId=req.body.id;
-    let addedItem = user.editTodo(todoId,title,description);
+    let title = req.body.title;
+    let description = req.body.description;
+    let todoId = req.body.id;
+    let addedItem = user.editTodo(todoId, title, description);
     res.redirect("/homePage");
   }
 }

@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const urlIsOneOf = require("./router").urlIsOneOf;
 const cookieParser = require('cookie-parser')
 const LoginHandler = require("./handlers/login_handler");
 const PostLoginHandler = require("./handlers/post_login_handler");
@@ -21,12 +20,12 @@ const compositeHandler = new CompositeHandler()
 app.use(express.urlencoded({extended:true}));
 app.use(express.static("public"));
 app.use((req,res,next)=>{
-  req.urlIsOneOf = urlIsOneOf.bind(req);
+  req.urlIsOneOf = function (urls) {
+    return urls.includes(this.url);
+  }
   next();
 })
 
-
-let foo = new HomePageHandler().getRequestHandler();
 app.use(cookieParser());
 app.use(compositeHandler.getRequestHandler());
 app.use(new RenderTodoHandler().getRequestHandler());

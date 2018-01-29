@@ -1,15 +1,8 @@
 let chai = require('chai');
 let dummyUser = require("../dummyUser");
 let assert = chai.assert;
-const SesssionManager =require("../js/sessionManager");
+const SesssionManager = require("../js/sessionManager");
 const FS = require("./dummyFS");
-const LoginHandler = require("../handlers/login_handler");
-const PostLoginHandler = require("../handlers/post_login_handler");
-const HomePageHandler = require("../handlers/home_page_handler");
-const RedirectionHandler = require("../handlers/redirection_handler");
-const TodoListHandler = require("../handlers/todo_list_handler");
-const LogoutHandler = require("../handlers/logout_handler");
-const RenderTodoHandler = require("../handlers/todo_render_handler");
 const request = require('supertest');
 let app = require('../app.js');
 let th = require('./testHelper.js');
@@ -18,9 +11,12 @@ let mockedFs = new FS();
 app.fs = mockedFs;
 app.user = dummyUser;
 app.registered_users = registered_users;
-let sessionIdGenerator =()=>1234;
+let sessionIdGenerator = () => 1234;
+app.temp = {}
+app.temp.homeTemp = "${name}";
+app.temp.todoTemplate = "${todoItem}";
 app.sessionManager = new SesssionManager(sessionIdGenerator);
-mockedFs.addFile("./public/login.html","<title>Login Page</title >")
+mockedFs.addFile("./public/login.html", "<title>Login Page</title >")
 describe('app', () => {
   describe('GET /bad', () => {
     it('responds with 404', (done) => {
@@ -84,108 +80,106 @@ describe('logout_handler', () => {
         .expect("Location", "/login")
         .end(done)
     });
-    it('should delete session id of logged in user and redirects to /login ', () => {
-      let handler = new LogoutHandler().getRequestHandler();
-      let user = { userName: "suyog", sessionid: 1000 };
-      let options = { method: 'GET', url: '/logout', user: user };
-      request(handler, options, res => {
-        th.should_be_redirected_to(res, '/login');
-        assert.notExists(options.user.sessionid);
-      })
+    it('should delete session id of logged in user and redirects to /login ', (done) => {
+      app.sessionManager.sessions["1234"] = "suyog";
+      request(app)
+        .get("/logout")
+        .set('Cookie', 'sessionid=1234')
+        .expect(302)
+        .expect((res)=>{
+          assert.notExists(app.sessionManager.sessions["1234"])
+        })
+        .end(done)
     })
   })
   describe('todo_action', () => {
-    let mockedUser;
-    beforeEach(() => {
-      mockedUser = dummyUser;
-    });
-    describe('GET /addTodo', () => {
-      it.skip('redirects to / if not logged in', (done) => {
-        let user = { userName: "suyog" };
-        let body = { title: 'title', description: 'description' };
-        let handler = new TodoListHandler("addTodo").getRequestHandler();
-        request(handler, { method: 'POST', url: '/addTodo', user: user, dummyUser: dummyUser, body: body }, res => {
-          assert.lengthOf(dummyUser.todos, 4)
-          th.should_be_redirected_to(res, "/hommePage");
-          done();
-        });
+    describe('POST /addTodo', () => {
+      it('redirects to /login if not logged in', (done) => {
+        request(app)
+          .post('/addTodo')
+          .expect(302)
+          .expect('Location', '/login')
+          .end(done)
       })
     })
     describe('GET /homePage', () => {
-      it('should serve content of home page when asked', () => {
-        let templateContent = "Welcome ${name}";
-        let handler = new HomePageHandler(templateContent).getRequestHandler();
-        let user = { userName: "suyog" };
-        request(handler, { method: 'GET', url: '/homePage', user: user }, res => {
-          th.status_is_ok(res)
-          th.body_contains(res, "Welcome suyog");
-        })
+      it('should serve content of home page when asked', (done) => {
+        app.sessionManager.sessions["1234"] = "suyog";
+        request(app)
+          .get('/homePage')
+          .set('Cookie', 'sessionid=1234')
+          .expect(/suyog/)
+          .expect(200)
+          .end(done);
       });
+      it('redirects to /login if not logged in and aksed for /homePage ', (done) => {
+        request(app)
+          .get('/homePage')
+          .expect(302)
+          .expect('Location', '/login')
+          .end(done)
+      })
     });
     describe('POST /deleteTodo', () => {
-      it('should delete todo from list', () => {
-        let user = { userName: "suyog" };
-        let body = { todo: 1 };
-        let handler = new TodoListHandler("delete").getRequestHandler();
-        request(handler, { method: 'POST', url: '/deleteTodo', user: user, dummyUser: mockedUser, body: body }, res => {
-          th.should_be_redirected_to(res, "/homePage");
-        });
+      app.sessionManager.sessions["1234"] = "suyog";
+      it('should delete todo from list', (done) => {
+        request(app)
+          .post("/deleteTodo")
+          .send("todo=1")
+          .set('Cookie', 'sessionid=1234')
+          .expect(302)
+          .expect('Location', '/homePage')
+          .end(done)
       });
-      it('should responds false for /deleteTodo req for non-existed todo', () => {
-        let user = { userName: "suyog" };
-        let body = { todo: 5 };
-        let handler = new TodoListHandler("delete").getRequestHandler();
-        request(handler, { method: 'POST', url: '/deleteTodo', user: user, dummyUser: mockedUser, body: body }, res => {
-          th.body_contains(res, "false");
-        });
+      it('should responds false for /deleteTodo req for non-existed todo', (done) => {
+        app.sessionManager.sessions["1234"] = "suyog";
+        request(app)
+          .post('/deleteTodo')
+          .send('todo=5')
+          .set('Cookie', 'sessionid=1234')
+          .expect('false')
+          .end(done)
       });
     });
     describe('redirection_handler', () => {
-      it('should redirect to/login if not logged in ', () => {
-        let handler = new RedirectionHandler().getRequestHandler();
-        request(handler, { method: 'POST', url: '/addTodo' }, res => {
-          th.should_be_redirected_to(res, "/login");
-        });
-      })
-    })
-    it('should redirect to /login if not logged in when url is unauthorised ', () => {
-      let handler = new RedirectionHandler().getRequestHandler();
-      request(handler, { method: 'POST', url: '/todo_1' }, res => {
-        th.should_be_redirected_to(res, "/login");
+      it('should redirect to /login if not logged in when url is unauthorised ', () => {
+        request(app)
+          .post("/todo_1")
+          .expect(302)
+          .expect("Location", "/login")
       });
     })
-    describe('todo_render_handler', () => {
-      it('should serve todo page by their id', () => {
-        let user = { userName: "suyog" };
-        let template = "${todoItem} ${todo}";
-        let contentToAssert = '<input id=1 type="checkbox" name="" value="1">hi<br>';
-        let handler = new RenderTodoHandler(template).getRequestHandler();
-        request(handler, { method: 'GET', url: '/todo_1', user: user, dummyUser: mockedUser }, res => {
-          th.body_contains(res, contentToAssert);
-        });
-      });
-    })
-    describe('POST /addItem', () => {
-      it('should add items to the given todo', () => {
-        let user = { userName: "suyog" };
-        let body = { todo: 2, text: "do something" };
-        let handler = new TodoListHandler("addItem").getRequestHandler();
-        request(handler, { method: 'POST', url: '/addItem', user: user, dummyUser: mockedUser, body: body }, res => {
-          th.body_contains(res, "do something");
-          assert.include(dummyUser.getItemsText('2'), "do something");
-        });
-      });
-    });
-    describe('POST /editTodo', () => {
-      it('should edit title and description of given todo', () => {
-        let user = { userName: "suyog" };
-        let body = { id: 2, title: "outdoor games", description: 'playing cricket' };
-        let handler = new TodoListHandler("editTodo").getRequestHandler();
-        request(handler, { method: 'POST', url: '/editTodo', user: user, dummyUser: mockedUser, body: body }, res => {
-          assert.equal(dummyUser.getTodoTitle('2'), "outdoor games");
-          th.should_be_redirected_to(res, '/homePage');
-        });
-      });
+  })
+  describe('todo_render_handler', () => {
+    it('should serve todo page by their id', (done) => {
+      request(app)
+        .get("/todo_2")
+        .set("Cookie","sessionid=1234")
+        .expect(200)
+        .expect(/<input id=1 type="checkbox" name="" value="1">hi<br>/)
+        .end(done)
     });
   })
+  describe('POST /addItem', () => {
+    it('should add items to the given todo', (done) => {
+      request(app)
+        .post("/addItem")
+        .set("Cookie","sessionid=1234")
+        .send("todo=2&text=do something")
+        .expect(200)
+        .expect(/do something/)
+        .end(done)
+    });
+  });
+  describe('POST /editTodo', () => {
+    it('should edit title and description of given todo', (done) => {
+      request(app)
+        .post('/editTodo')
+        .set("Cookie", "sessionid=1234")
+        .send("id=2&title='outdoor games'&description='playing cricket'")
+        .expect(302)
+        .expect("Location","/homePage")
+        .end(done)
+    });
+  });
 })

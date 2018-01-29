@@ -6,6 +6,7 @@ suyog.addTodo("at pg", "yesterday morning");
 suyog.addItem(1,"hi")
 suyog.addItem(1, "hi")
 suyog.addItem(1, "hi")
+suyog.addItem(2, "hi")
 module.exports=suyog;
 
 //--------------

@@ -11,7 +11,7 @@ class HomePageHandler extends ToDoHandler{
     let html = toHtml.todos(todos);
     let home = req.app.temp["homeTemp"];
     home = home.replace("todoHolder", html);
-    home = home.replace("${name}", req.user.userName);
+    home = home.replace("${name}", req.user);
     res.setHeader('Content-type', 'text/html');
     res.write(home);
     res.end();

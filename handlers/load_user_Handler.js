@@ -2,10 +2,8 @@ class LoadUserHandler {
   constructor() {
   }
   execute(req, res) {
-    let isLoggedIn = false;
     let sessionId = req.cookies.sessionid;
-    if (sessionId) isLoggedIn = req.app.sessionManager.isLoggedIn(sessionId);
-    if (sessionId && isLoggedIn) {
+    if (sessionId && req.app.sessionManager.isLoggedIn(sessionId)){
       let user = req.app.sessionManager.getUserBySessionId(sessionId);
       req.user = user;
     }
