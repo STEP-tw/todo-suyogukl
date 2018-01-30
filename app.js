@@ -40,4 +40,5 @@ app.get('/homePage', new HomePageHandler().getRequestHandler());
 app.get('/logout',new LogoutHandler().getRequestHandler());
 app.post('/markdone', new TodoItemHandler('markAsDone').getRequestHandler());
 app.post('/markUndone', new TodoItemHandler('markUndone').getRequestHandler());
+app.post('/deleteItem', new TodoItemHandler('deleteItem').getRequestHandler());
 module.exports = app;

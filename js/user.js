@@ -73,5 +73,9 @@ class User {
     let todo = this.getTodo(todoId);
     return todo.changeStatusAsNotDone(itemId);
   }
+  deleteTodoItem(todoId, itemId){
+    let todo = this.getTodo(todoId);
+    return todo.removeItem(itemId);
+  }
 }
 module.exports = User;

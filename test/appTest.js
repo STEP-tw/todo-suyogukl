@@ -156,7 +156,9 @@ describe('todo_render_handler', () => {
       .get("/todo_2")
       .set("Cookie", "sessionid=1234")
       .expect(200)
-      .expect('<input id=2_1 type="checkbox"  onclick="changeStatus(this.id)" value="">hi<br>')
+      .expect((res)=>{
+        assert.include(res.text,'<input id=2_1 type="checkbox"  onclick="changeStatus(this.id)" value="">hi<button id=2_1')
+      })
       .end(done)
   });
 })
@@ -211,6 +213,24 @@ describe('POST /editTodo', () => {
     it('should responds with 410 status code if item is not present', (done) => {
       request(app)
         .post('/markUndone')
+        .set("Cookie", "sessionid=1234")
+        .send("todoId=2&itemId=7")
+        .expect(410)
+        .end(done)
+    });
+  });
+  describe('POST /deleteItem', () => {
+    it('should change status of given todo to not done item if item is present', (done) => {
+      request(app)
+        .post('/deleteItem')
+        .set("Cookie", "sessionid=1234")
+        .send("todoId=2&itemId=2")
+        .expect(200)
+        .end(done)
+    });
+    it('should responds with 410 status code if item is not present', (done) => {
+      request(app)
+        .post('/deleteItem')
         .set("Cookie", "sessionid=1234")
         .send("todoId=2&itemId=7")
         .expect(410)

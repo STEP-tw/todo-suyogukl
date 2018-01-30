@@ -37,7 +37,9 @@ class ToDo {
   }
   removeItem(id){
     let index=this.toDoItems.findIndex((a)=>a.id==id);
+    if(index==-1)return false;
     this.toDoItems.splice(index,1);
+    return true;
   }
   getItemStatus(itemId){
     return this.getItem(itemId).status;
