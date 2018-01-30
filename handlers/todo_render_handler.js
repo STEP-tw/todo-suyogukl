@@ -18,7 +18,9 @@ class RenderTodoHandler extends TodoActionHandler {
     if (this.isValid(url)&&this.hasTodo(id,user)) {
       let items = user.getItemsOfTodo(+id);
       let title = user.getTodoTitle(+id)
-      let objectives = items.map(toHtml.toInput).join("");
+      let objectives = items.map(function(item){
+        return toHtml.toInput(item,id)
+      }).join("");
       let temp = req.app.temp["todoTemplate"];
       let html = temp.replace("${todoItem}", objectives);
       html = html.replace(/\${todo}/g, `todo=${id}`);

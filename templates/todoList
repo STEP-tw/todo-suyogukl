@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title></title>
     <script src="/js/todoList.js" charset="utf-8"></script>
+    <script src="/js/todoItems.js" charset="utf-8"></script>
     <link rel="stylesheet" href="/css/styleAllPage.css">
   </head>
   <body>

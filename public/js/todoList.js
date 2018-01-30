@@ -35,8 +35,6 @@ const getEditTodoForm = function(id){
 const showEditForm=function(id){
   let todoId = id.split("todo=")[1];
   let div = document.getElementsByClassName('editForm')[0];
-  // if(div.innerHTML&&div.style.visibility = "hidden")
-  // {}
   let editForm = getEditTodoForm(todoId);
   div.innerHTML = editForm;
   document.getElementsByName("editTodo")[0].onclick = ()=>{

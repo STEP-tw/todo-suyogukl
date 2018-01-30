@@ -9,6 +9,7 @@ const LogRequestHandler = require("./handlers/log_request_handler");
 const LoadUserHandler= require("./handlers/load_user_Handler");
 const RedirectionHandler = require("./handlers/redirection_handler");
 const TodoListHandler = require("./handlers/todo_list_handler");
+const TodoItemHandler = require("./handlers/todo_item_handler");
 const CompositeHandler = require("./handlers/composite_handler");
 const RenderTodoHandler = require("./handlers/todo_render_handler");
 
@@ -37,4 +38,6 @@ app.get('/login',new LoginHandler().getRequestHandler());
 app.post('/login', new PostLoginHandler().getRequestHandler());
 app.get('/homePage', new HomePageHandler().getRequestHandler());
 app.get('/logout',new LogoutHandler().getRequestHandler());
+app.post('/markdone', new TodoItemHandler('markAsDone').getRequestHandler());
+app.post('/markUndone', new TodoItemHandler('markUndone').getRequestHandler());
 module.exports = app;

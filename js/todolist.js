@@ -43,10 +43,18 @@ class ToDo {
     return this.getItem(itemId).status;
   }
   changeStatusAsDone(itemId){
-    this.getItem(itemId).markDone();
+    let item = this.getItem(itemId);
+    if(item){
+      this.getItem(itemId).markDone();
+      return true;
+    }
   }
   changeStatusAsNotDone(itemId){
-    this.getItem(itemId).markNotDone();
+    let item = this.getItem(itemId);
+    if (item) {
+      this.getItem(itemId).markNotDone();
+      return true;
+    }
   }
 }
 module.exports = ToDo;

@@ -34,7 +34,7 @@ let actions = {
     let todoId = req.body.todo;
     let text = req.body.text;
     let addedItem = user.addItem(todoId, text);
-    res.write(toHtml.toInput(addedItem));
+    res.write(toHtml.toInput(addedItem,todoId));
     res.end();
   },
   'editTodo': function (req, res) {
