@@ -3,7 +3,7 @@ exports.todos = (todos)=>{
 }
 
 const getItemTemp=function(todoId,todoItem,status){
-  return ` <div class=${todoId}_${todoItem.id}> <input id=${todoId}_${todoItem.id} type="checkbox" ${status} onclick="changeStatus(this.id)" value="">${todoItem.text}<button id=${todoId}_${todoItem.id} onclick="deleteItem(this.id)">x</button><br></div>`;
+  return ` <div class=${todoId}_${todoItem.id}> <input id=${todoId}_${todoItem.id} type="checkbox" ${status} onclick="changeStatus(this.id)" value="">${todoItem.text}<button id=${todoId}_${todoItem.id} onclick="deleteItem(this.id)">x</button><button id=${todoId}_${todoItem.id} onclick="editItem(this.id)" value='edit'></button><br></div>`;
 }
 
 exports.toAnchor = (todo)=>{
