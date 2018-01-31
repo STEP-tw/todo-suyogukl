@@ -7,18 +7,23 @@
   </head>
   <body>
     <div class="main">
-      <h1 align='center'><a href="index.html"><<</a>ToDo App</h1><hr/>
+      <div class="titleBar">
+        <a href="index.html" id='homeButton'><img id="LinkTohome" src="image/home.png" alt=""></a>
+        <h1 id='title'>Todo App</h1><hr/>
+      </div>
       <b>message</b>
       <form align="center" id="loginForm" href='/addTodo'method='POST'>
-        <h2>Login</h2>
-        <b>Username</b>
-        <br>
-        <input class="loginDetails" type="text" name="userName" value=''><br><br>
-        <b>Password</b>
-        <br>
-        <input class="loginDetails" type="password" name="password" value=''></input>
-        <br><br>
-        <input type="submit" value="Login">
+        <fieldset class="fieldset">
+          <h2>Login</h2>
+          <b>Username</b>
+          <br>
+          <input class="loginDetails" type="text" name="userName" value=''><br><br>
+          <b>Password</b>
+          <br>
+          <input class="loginDetails" type="password" name="password" value=''></input>
+          <br><br>
+          <input type="submit" value="Login">
+        </fieldset>
       </form>
     </div>
   </body>

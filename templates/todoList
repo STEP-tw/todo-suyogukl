@@ -20,7 +20,7 @@
           ${todoItem}
         </div>
         <div class="addItems">
-          TodoItem :<input style="width:100px;height:25px;" type="text" name="addItem" value="">
+          TodoItem :<input style="width:100px;height:25px;" type="text" name="addItem" value="" required>
           <button type="button" class="addButton" id="${todo}" onclick="addItem(this.id)" name="button">addItem</button>
         </div>
       </div>

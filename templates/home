@@ -4,16 +4,29 @@
     <meta charset="utf-8">
     <title>Home Page</title>
     <link rel="stylesheet" href="/css/styleAllPage.css">
+    <script src="/js/homePage.js" charset="utf-8"></script>
   </head>
   <body>
     <div class="main">
-      <a id="logout"href="/logout">Logout</a>
-      <h2 id="user">Welcome ${name}</h2>
-      <a id="addTodo" href="/addTodo.html">Create Todo</a>
-      <h2 id="todoHeading">Your Todos</h2>
+      <div class="titleBar">
+        <a href="/homePage" id='homeButton'><img id="LinkTohome" src="image/home.png" alt=""></a>
+        <a href="/logout" id='logout'><img id="LinkToLogout" src="image/logout.png" alt=""></a>
+        <h1 id='title'>Your Todos</h1><hr/>
+      </div>
+      <div class="">
+        <h2 id="user">Welcome ${name}</h2>
+      </div>
+      <div id="" class="header">
+        <h2 style="margin:5px">My To Do List</h2>
+        <input type="text" id="inputTitle" placeholder="Title..." required>
+        <input type="text" id="inputDesc" placeholder="Description..." required>
+        <button class="addBtn"type="button" onclick="newElement()">Add</button>
+      </div>
+      <div class="todoStorage">
         <ol id="todoContainer">
-          todoHolder
+            todoHolder
         </ol>
+      </div>
     </div>
   </body>
 </html>
