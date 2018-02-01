@@ -9,8 +9,10 @@ class RedirectionHandler {
     if (this.inValid(req)) {
       res.redirect("/login");
     }
-    else if (req.urlIsOneOf(['/addTodo','/deleteTodo','/addTodo.html', "/homePage"]) && !req.user) {
+    else if (req.urlIsOneOf(['/addTodo','/deleteTodo','/addTodo.html','/', "/homePage"]) && !req.user) {
       res.redirect('/login');
+    }else if (req.url =="/"&&req.user) {
+      res.redirect('/homePage');
     }
   }
   getRequestHandler() {

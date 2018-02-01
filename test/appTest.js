@@ -25,7 +25,23 @@ describe('app', () => {
         .end(done)
     })
   })
-})
+  describe('GET /', () => {
+    it('should redirect to /login if not logged in', (done) => {
+      request(app)
+        .get("/")
+        .expect(302)
+        .expect("Location","/login")
+        .end(done)
+    });
+    it('should redirect to /homePage if logged in', (done) => {
+      request(app)
+        .get("/")
+        .set('Cookie', 'sessionid=1234')
+        .expect(302)
+        .expect("Location", "/homePage")
+        .end(done)
+    });
+  });
 describe('login_handler', () => {
   describe('GET /login', () => {
     it('should serve login page when asked for /login', (done) => {
@@ -238,3 +254,4 @@ describe('POST /editTodo', () => {
     });
   });
 });
+})
