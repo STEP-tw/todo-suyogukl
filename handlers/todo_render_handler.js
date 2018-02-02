@@ -25,6 +25,7 @@ class RenderTodoHandler extends TodoActionHandler {
       let html = temp.replace("${todoItem}", objectives);
       html = html.replace(/\${todo}/g, `todo=${id}`);
       html = html.replace(/\${title}/, title);
+      html = html.replace(/\${name}/, user.name);
       res.write(html);
       res.end();
     }

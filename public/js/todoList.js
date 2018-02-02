@@ -21,7 +21,7 @@ const addItem = function(id) {
   let text = document.getElementsByName("addItem")[0].value;
   let postData = `${id}&text=${text}`;
   sendAJAXReq("/addItem", "POST", postData, function() {
-    let div = document.getElementsByClassName("todoItem")[0];
+    let div = document.getElementById("todoContainer");
     div.innerHTML += this.responseText;
   })
 }

@@ -1,8 +1,8 @@
 const getTimeInSecond = ()=>new Date().getTime();
 class SessionManager {
-  constructor (sessionIdGenerator=getTimeInSecond){
+  constructor (sessionIdGenerator=getTimeInSecond,sessions){
     this.sessionIdGenerator=sessionIdGenerator;
-    this.sessions = {};
+    this.sessions = sessions||{};
   }
   createSession(userName){
     let sessionId = this.sessionIdGenerator();
@@ -19,6 +19,9 @@ class SessionManager {
   }
   isLoggedIn(sessionId){
     return sessionId in this.sessions;
+  }
+  toJson(){
+    return JSON.stringify(this.sessions,null,2);
   }
 }
 

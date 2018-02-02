@@ -173,7 +173,7 @@ describe('todo_render_handler', () => {
       .set("Cookie", "sessionid=1234")
       .expect(200)
       .expect((res)=>{
-        assert.include(res.text,'<input id=2_1 type="checkbox"  onclick="changeStatus(this.id)" value="">hi<button id=2_1')
+        assert.include(res.text,'<span id=2_1 class="close" onclick="deleteItem(this.id)">X</span')
       })
       .end(done)
   });

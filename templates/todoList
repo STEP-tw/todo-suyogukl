@@ -9,19 +9,26 @@
   </head>
   <body>
     <div class="main">
-      <div class="itemContent">
-        <a id="logout"href="/logout">Logout</a>
+      <div class="titleBar">
+        <a href="/homePage" id='homeButton'><img id="LinkTohome" src="image/home.png" alt=""></a>
+        <a href="/logout" id='logout'><img id="LinkToLogout" src="image/logout.png" alt=""></a>
+        <h1 id='title'>${title}</h1><hr/>
+      </div>
+      <div class="">
+        <h2 id="user">Welcome ${name}</h2>
+      </div>
+      <div id="" class="header">
+        <h2 style="margin:5px">My To Do List</h2>
+        <input type="text" id="inputTitle" name="addItem" placeholder="TodoItem..." required>
+        <button class="addBtn" id="${todo}" onclick="addItem(this.id)">Add</button>
+      </div>
+      <!-- <div class="itemContent">
         <button class='deleteButton' id="${todo}" type="button" onclick="deleteTodo(this.id)" name="delete">deleteTodo</button>
-        <button type="button" class='editButton' id="${todo}" name="" onclick='showEditForm(this.id)'>editTodo</button>
-        <div class="titleHolder">
-          <h2 align="center"> <a href="/homePage"><<<</a><p id="titleHolder">${title}</p> </h2>
-        </div>
-        <div class="todoItem">
-          ${todoItem}
-        </div>
-        <div class="addItems">
-          TodoItem :<input style="width:100px;height:25px;" type="text" name="addItem" value="" required>
-          <button type="button" class="addButton" id="${todo}" onclick="addItem(this.id)" name="button">addItem</button>
+        <button type="button" class='editButton' id="${todo}" name="" onclick='showEditForm(this.id)'>editTodo</button> -->
+        <div class="todoStorage">
+          <ol id="todoContainer">
+            ${todoItem}
+          </ol>
         </div>
       </div>
       <div class="editForm">
