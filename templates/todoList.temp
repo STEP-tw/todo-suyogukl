@@ -5,15 +5,17 @@
     <title></title>
     <script src="/js/todoList.js" charset="utf-8"></script>
     <script src="/js/todoItems.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="/css/todo.css">
     <link rel="stylesheet" href="/css/styleAllPage.css">
   </head>
   <body>
-    <div class="main">
+    <main>
       <div class="titleBar">
         <a href="/homePage" id='homeButton'><img id="LinkTohome" src="image/home.png" alt=""></a>
         <a href="/logout" id='logout'><img id="LinkToLogout" src="image/logout.png" alt=""></a>
-        <h1 id='title'>${title}</h1><hr/>
+        <h1 id='title'>${title}</h1>
       </div>
+      <br>
       <div class="">
         <h2 id="user">Welcome ${name}</h2>
       </div>
@@ -23,18 +25,19 @@
         <button class="addBtn" id="${todo}" onclick="addItem(this.id)">Add</button>
       </div>
       <!-- <div class="itemContent">
-        <button class='deleteButton' id="${todo}" type="button" onclick="deleteTodo(this.id)" name="delete">deleteTodo</button>
-        <button type="button" class='editButton' id="${todo}" name="" onclick='showEditForm(this.id)'>editTodo</button> -->
-        <div class="todoStorage">
-          <ol id="todoContainer">
-            ${todoItem}
-          </ol>
-        </div>
+      <button class='deleteButton' id="${todo}" type="button" onclick="deleteTodo(this.id)" name="delete">deleteTodo</button>
+      <button type="button" class='editButton' id="${todo}" name="" onclick='showEditForm(this.id)'>editTodo</button> -->
+      <div class="todoStorage">
+        <ol id="todoContainer">
+          ${todoItem}
+        </ol>
       </div>
-      <div class="editForm">
-      </div>
-      <div class='editItemForm'
-      </div>
+    </div>
+
+    <div class="editForm">
+    </div>
+    <div class='editItemForm'
+    </main>
     </div>
   </body>
 </html>

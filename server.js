@@ -8,7 +8,7 @@ app.fs = fs;
 app.sessionManager = new SessionManager();
 
 let homeTemp = fs.readFileSync("./templates/home", "utf8");
-let todoTemp = fs.readFileSync("./templates/todoList", "utf8");
+let todoTemp = fs.readFileSync("./templates/todoList.temp", "utf8");
 let registered_users = [{ userName: 'suyog', name: 'suyog ukalkar', password: 'a' }];
 //-----------
 let templates = {

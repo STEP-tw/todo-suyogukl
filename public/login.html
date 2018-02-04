@@ -3,28 +3,29 @@
   <head>
     <meta charset="utf-8">
     <title>Login Page</title>
-    <link rel="stylesheet" href="css/styleAllPage.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400|Roboto+Slab:300,700" rel="stylesheet">
+    <link rel="stylesheet" href="css/todo.css">
   </head>
   <body>
-    <div class="main">
-      <div class="titleBar">
-        <a href="/homePage" id='homeButton'><img id="LinkTohome" src="image/home.png" alt=""></a>
-        <h1 id='title'>Todo App</h1><hr/>
-      </div>
-      <b>message</b>
-      <form align="center" id="loginForm" href='/addTodo'method='POST'>
-        <fieldset class="fieldset">
+    <header>
+      <h1 id="title">To &#9679; do</h1>
+    </header>
+    <main>
+      <p class="msg">message</p>
+      <form id="loginForm" href='/addTodo'method='POST'>
+        <section class="fieldset">
           <h2>Login</h2>
-          <b>Username</b>
-          <br>
-          <input class="loginDetails" type="text" name="userName" value=''><br><br>
-          <b>Password</b>
-          <br>
-          <input class="loginDetails" type="password" name="password" value=''></input>
-          <br><br>
+          <div class="form-input">
+            <label for="userName">Username</label>
+            <input id="userName" type="text" name="userName" value='' />
+          </div>
+          <div class="form-input">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" value='' />
+          </div>
           <input type="submit" value="Login">
-        </fieldset>
+        </section>
       </form>
-    </div>
+    </main>
   </body>
 </html>

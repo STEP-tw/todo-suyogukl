@@ -4,15 +4,17 @@
     <meta charset="utf-8">
     <title>Home Page</title>
     <link rel="stylesheet" href="/css/styleAllPage.css">
+    <link rel="stylesheet" href="/css/todo.css">
     <script src="/js/homePage.js" charset="utf-8"></script>
   </head>
   <body>
-    <div class="main">
+    <main>
       <div class="titleBar">
         <a href="/homePage" id='homeButton'><img id="LinkTohome" src="image/home.png" alt=""></a>
         <a href="/logout" id='logout'><img id="LinkToLogout" src="image/logout.png" alt=""></a>
-        <h1 id='title'>Your Todos</h1><hr/>
+        <h1 id='title'>Your Todos</h1>
       </div>
+      <br>
       <div class="">
         <h2 id="user">Welcome ${name}</h2>
       </div>
@@ -24,9 +26,9 @@
       </div>
       <div class="todoStorage">
         <ol id="todoContainer">
-            todoHolder
+          todoHolder
         </ol>
       </div>
-    </div>
+    </main>
   </body>
 </html>

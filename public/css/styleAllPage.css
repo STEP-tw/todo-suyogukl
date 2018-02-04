@@ -1,22 +1,7 @@
-div.main {
-  /* width: 1200px;
-  height: 850px; */
-  margin: auto;
+body {
+  font-family: 'Roboto Slab', serif;
 }
 
-div.heading {
-  width: 1200px;
-  height: 150px;
-}
-
-div.pageContent {
-  width: 1200px;
-  height: 500px;
-}
-
-#todoHeading {
-  text-align: center;
-}
 
 div.content {
   height: 600px;
@@ -63,14 +48,6 @@ div.content {
   font-size: 15px;
 }
 
-.addButton {
-  position: fixed;
-  margin-left: 200px;
-  margin-top: -25px;
-  height: 3%;
-  width: 5%;
-  font-size: 15px;
-}
 
 .todoItem {
   position: fixed;
@@ -88,16 +65,7 @@ div.content {
   margin-top: 150px;
   margin-left: 650px;
 }
-.fieldset{
-  height: 300px;
-  width: 250px;
-}
 
-.loginDetails {
-  font-size: 15px;
-  width: 200px;
-  height: 20px;
-}
 
 #addTodoForm {
   margin-top: 200px;
@@ -147,7 +115,8 @@ div.content {
   width: 150px;
 }
 .titleBar{
-  background-color: #0de4d1;
+  background-color: whitesmoke;
+  padding-bottom: 8px;
 }
 #title{
   /* position: fixed; */
@@ -168,7 +137,7 @@ div.content {
 }
 
 .header {
-  background-color: #006699;
+  background-color: black;
   padding: 30px 40px;
   color: white;
   text-align: center;
@@ -214,4 +183,23 @@ ol li:nth-child(odd) {
 
 ol li:hover {
   background: #ddd;
+}
+
+ol li.checked {
+  background: #888;
+  color: #fff;
+  text-decoration: line-through;
+}
+
+ol li.checked::before {
+  content: '';
+  position: absolute;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 10px;
+  left: 16px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
 }

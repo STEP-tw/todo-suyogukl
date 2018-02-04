@@ -1,15 +1,18 @@
-const changeStatus=function(todoAndItemId){
-  todoAndItemId = todoAndItemId.split("_");
-  let url = "/markUndone";
+const changeStatus = function(){
+  let url = "/markdone";
   let inbox = event.target;
-  if (inbox.checked) url = "/markdone"
+  let todoAndItemId = inbox.parentNode.className.split("_");
+  if(inbox.className=="checked")url="/markUndone"
   let todoId = todoAndItemId[0];
   let itemId = todoAndItemId[1];
-  let itemData = `todoId=${todoId}&itemId=${itemId}`
-  sendAJAXReq(url,"POST",itemData,()=>{return;})
+  let itemData = `todoId=${todoId}&itemId=${itemId}`;
+  sendAJAXReq(url,"POST",itemData,function(){
+    if(inbox.className=="checked")return inbox.className=""
+    return inbox.className="checked";
+  })
 }
 
-deleteItem = function (todoAndItemId){
+const deleteItem = function (todoAndItemId){
   let itemAndTodoId = todoAndItemId.split("_");
   let todoId = itemAndTodoId[0];
   let itemId = itemAndTodoId[1];
