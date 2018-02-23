@@ -7,8 +7,6 @@ let c = 14;
 a = 12;
 b = 13;
 c = 14;
-let x = 1;
-let y = 2;
 
 const getDeleteButton = function(id){
   return `<button id=${id} onclick="deleteItem(this.id)">x</button>`;
