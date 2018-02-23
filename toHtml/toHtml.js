@@ -1,7 +1,9 @@
 exports.todos = (todos)=>{
   return todos.map(exports.toAnchor).join("<br>");
 }
-
+let a =12;
+let b = 13;
+let c = 14;
 const getDeleteButton = function(id){
   return `<button id=${id} onclick="deleteItem(this.id)">x</button>`;
 }
