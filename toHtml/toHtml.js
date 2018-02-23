@@ -4,6 +4,10 @@ exports.todos = (todos)=>{
 let a =12;
 let b = 13;
 let c = 14;
+a = 12;
+b = 13;
+c = 14;
+
 const getDeleteButton = function(id){
   return `<button id=${id} onclick="deleteItem(this.id)">x</button>`;
 }
