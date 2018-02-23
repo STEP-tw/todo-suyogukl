@@ -87,6 +87,14 @@ div.content {
   font-size: 15px;
 }
 
+/* .editButton {
+  position: fixed;
+  margin-left: 800px;
+  margin-top: 5px;
+  height: 3%;
+  width: 6%;
+  font-size: 15px;
+} */
 .editForm {
   margin-left: 30%;
   margin-top: 2%;
