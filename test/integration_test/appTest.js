@@ -158,11 +158,12 @@ describe('app', () => {
       });
     });
     describe('redirection_handler', () => {
-      it('should redirect to /login if not logged in when url is unauthorised ', () => {
+      it('should redirect to /login if not logged in when url is unauthorised ', (done) => {
         request(app)
           .post("/todo_1")
           .expect(302)
           .expect("Location", "/login")
+          .end(done)
       });
     })
   })
