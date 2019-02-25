@@ -1,4 +1,4 @@
-const User = require('../js/user.js');
+const User = require('../../js/user.js');
 let chai = require('chai');
 let assert = chai.assert;
 
@@ -39,7 +39,7 @@ describe('Tests for User', () => {
       suyog.addTodo('title', 'description');
       suyog.addTodo('good', 'morning');
       suyog.removeTodo(2);
-      assert.notInclude(suyog.getAllTodoTitles(),"good");
+      assert.notInclude(suyog.getAllTodoTitles(), "good");
     })
     it('should return false if given todo is not there', () => {
       suyog.addTodo('title', 'description');
@@ -81,7 +81,7 @@ describe('Tests for User', () => {
       suyog.addTodo('title', 'description');
       suyog.addTodo('good', 'morning');
       let expected = [{ id: 1, title: "title" }, { id: 2, title: "good" }]
-      assert.deepEqual(suyog.titlesWithIDs,expected);
+      assert.deepEqual(suyog.titlesWithIDs, expected);
     })
   })
 })

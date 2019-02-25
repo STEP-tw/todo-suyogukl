@@ -8,6 +8,8 @@
   },
   "scripts": {
     "test": "mocha",
+    "unit_test": "mocha test/unit_test",
+    "integration_test": "mocha test/integration_test",
     "start": "node server.js"
   },
   "repository": {
